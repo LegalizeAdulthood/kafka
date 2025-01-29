@@ -25,15 +25,16 @@ project("${KAFKA_PROJECT_NAME}" C)
 
 include(CTest)
 
-add_library(runtime
-    etc.c
-    maketext.c
-    output.c
-)
-set_target_properties(runtime PROPERTIES
-    LINKER_LANGUAGE C
-    FOLDER "Libraries")
-
+if(BUILD_RUNTIME)
+    add_library(runtime
+        etc.c
+        maketext.c
+        output.c
+    )
+    set_target_properties(runtime PROPERTIES
+        LINKER_LANGUAGE C
+        FOLDER "Libraries")
+endif()
 
 bison_target(parser parse.y "${CMAKE_CURRENT_BINARY_DIR}/parser.c"
     DEFINES_FILE "${CMAKE_CURRENT_BINARY_DIR}/parser.h")
