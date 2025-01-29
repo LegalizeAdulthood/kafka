@@ -17,6 +17,8 @@
 
 #define USAGE { printf("Usage: kafka [sourcefile] [-v].\n"); exit(1); }
 
+int yyparse(void);
+
 int vflag = 0;
 char *sourcefile = NULL;
 
