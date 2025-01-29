@@ -12,22 +12,6 @@
 
 extern FILE *specp, *textp;
 
-/* This should exist somewhere. It should be first in the file... */
-
-char *itoa(int num)
-{
-	static char buf[32];
-	int p;
-
-	p = 31;
-	do {
-		buf[p] = (char) num % 10 - '\0';
-		num /= 10;
-		p--;
-	} while (num);
-	return (buf + p);
-}
-
 /* The hashing function. Note that hashtables have to be of size 256. 
  * They probably don't need to be very big, and the fn is simple...
  */

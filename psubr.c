@@ -10,20 +10,26 @@
  */
 
 #include "kafgraf.h"
+#include "stuff.h"
+
 #include <stdio.h>
-//#include <strings.h>
+#include <stdlib.h>
+#include <string.h>
 
 struct knode *n;
 struct knode *hashtab[256];
 struct karc *avarc;
 int i, c;
 
+int input(void);
+void unput(char c);
+
 /* Enter a new rule. */
 
 void newrule(char *name)
 {
 	struct knode *prev;
-	unsigned char hashind, phash();
+	unsigned char hashind;
 
 	hashind = phash(name);
 	if (hashtab[hashind]) {
@@ -61,7 +67,7 @@ gotit:
 /* Enter a computed terminal. */
 
 
-void docompterm()
+void docompterm(void)
 {
 	int fnum;
 
@@ -130,7 +136,7 @@ void doterm(char *name)
 
 /* Copy C code in defs section. */
 
-void copyccode()
+void copyccode(void)
 {
 	int c;
 	extern FILE *textp;

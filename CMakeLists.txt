@@ -50,7 +50,7 @@ add_executable(kafka
     dstrans.h dstrans.c
     init.h init.c
     main.c
-    psubr.c
+    psubr.h psubr.c
     stuff.h stuff.c
     parse.y
     lexical.l
