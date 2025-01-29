@@ -1,4 +1,3 @@
-
 /* RCS Info: $Revision: $ on $Date: $
  *           $Source: $
  * Copyright (c) 1985 Wayne A. Christopher 
@@ -8,6 +7,7 @@
  * The output function for babble. Well, there has to be a special control
  * character for newlines, spaces, and tabs... This is %. %n, %t, %s.
  */
+#include "output.h"
 
 #include <stdio.h>
 

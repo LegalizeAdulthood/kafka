@@ -5,6 +5,7 @@
  *	Permission is granted to do anything with this code except sell it
  *	or remove this message.
  */
+#include "maketext.h"
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -26,8 +27,7 @@ extern struct kknode *nodelist;
  * name of a non-terminal.
  */
 
-maketext(s)
-char *s;
+int maketext(char *s)
 {
 	struct kknode *stnode, *kknn;
 	int kkcv;
