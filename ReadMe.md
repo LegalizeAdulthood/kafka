@@ -1,3 +1,6 @@
+[![CMake workflow](https://github.com/LegalizeAdulthood/kafka/actions/workflows/cmake.yml/badge.svg)](https://github.com/LegalizeAdulthood/kafka/actions/workflows/cmake.yml)
+[![C++17](https://img.shields.io/badge/C%2B%2B-17-blue.svg)](https://en.wikipedia.org/wiki/C%2B%2B17)
+
 # Kafka
 
 Contained herein is the source for kafka, which is a program that
