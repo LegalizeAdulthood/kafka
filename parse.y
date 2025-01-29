@@ -11,12 +11,23 @@
  */
 
 #include <stdio.h>
-#include <strings.h>
+//#include <strings.h>
 #include "kafgraf.h"
+#include "lexer.h"
 
 char buf[BUFSIZ];
 extern FILE *inp;
 extern struct karc *avarc;
+extern void copyccode();
+extern void newrule(char *name);
+extern void docompterm();
+extern int newnum();
+extern int transcribe(int num);
+extern void dononterm(char *name);
+extern void doterm(char *name);
+void yyerror(const char *text);
+
+#define YYSTYPE char *
 
 %}
 

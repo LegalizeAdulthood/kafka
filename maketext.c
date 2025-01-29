@@ -7,8 +7,13 @@
  */
 
 #include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
 #include "kafgraf.h"
 #include "defs.h"
+
+extern void kkoutput(char *string);
 
 struct kkelt kkstack[STACKSIZE];	/* The stack. */
 struct kkelt *kksp;			/* The stack pointer. */

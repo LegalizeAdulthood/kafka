@@ -20,8 +20,7 @@ extern int nflag;
 
 int lpos = 0;
 
-kkoutput(string)
-char *string;
+void kkoutput(char *string)
 {
 
 	static char text[BUFSIZ];

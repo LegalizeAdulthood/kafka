@@ -11,7 +11,7 @@
 
 #include "kafgraf.h"
 #include <stdio.h>
-#include <strings.h>
+//#include <strings.h>
 
 struct knode *n;
 struct knode *hashtab[256];
@@ -20,8 +20,7 @@ int i, c;
 
 /* Enter a new rule. */
 
-newrule(name)
-char *name;
+void newrule(char *name)
 {
 	struct knode *prev;
 	unsigned char hashind, phash();
@@ -62,7 +61,7 @@ gotit:
 /* Enter a computed terminal. */
 
 
-docompterm()
+void docompterm()
 {
 	int fnum;
 
@@ -83,8 +82,7 @@ docompterm()
 
 /* Enter a nonterminal in a rule. */
 
-dononterm(name)
-char *name;
+void dononterm(char *name)
 {
 
 	/* Found a non-terminal. Note that throughout
@@ -111,8 +109,7 @@ char *name;
 
 /* Enter a terminal. */
 
-doterm(name)
-char *name;
+void doterm(char *name)
 { 
 
 	/* Just set ka_toname to the name of the terminal and set ka_type
@@ -133,7 +130,7 @@ char *name;
 
 /* Copy C code in defs section. */
 
-copyccode()
+void copyccode()
 {
 	int c;
 	extern FILE *textp;

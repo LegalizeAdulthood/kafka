@@ -57,7 +57,7 @@ char **av;
 
 /* The error handler. This could use work. */
 
-yyerror()
+void yyerror(const char *text)
 {
 	extern int lineno, errp;
 

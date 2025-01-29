@@ -1,4 +1,3 @@
-
 /* RCS Info: $Revision: $ on $Date: $
  *           $Source: $
  * Copyright (c) 1985 Wayne A. Christopher 
@@ -7,11 +6,14 @@
  */
 
 #include <stdio.h>
+#include <stdlib.h>
 
-FILE *textp, *specp, *inp;
+FILE *textp = NULL;
+FILE *specp = NULL;
+FILE *infile = NULL;
 extern char *sourcefile;
 
-init()
+int init()
 {
 	/* These should be only defaults here... */
 
@@ -24,9 +26,9 @@ init()
 		exit(1);
 	}
 	if (!sourcefile)
-		inp = stdin;
+		infile = stdin;
 	else
-		if ((inp = fopen(sourcefile, "r")) == NULL) {
+		if ((infile = fopen(sourcefile, "r")) == NULL) {
 			perror(sourcefile);
 			exit(1);
 		}

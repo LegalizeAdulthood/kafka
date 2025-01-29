@@ -1,4 +1,3 @@
-
 /* RCS Info: $Revision: $ on $Date: $
  *           $Source: $
  * Copyright (c) 1985 Wayne A. Christopher 
@@ -23,6 +22,7 @@
  * kknode is the final form used in the actual program generated 
  * (likewise for karc and kcarc) .
  */
+#pragma once
 
 #define SSIZE	100	/* Max size of terminals and nonterms.  */
 

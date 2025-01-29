@@ -48,8 +48,7 @@ char *string;
  * up by unbalanced brackets in comments.
  */ 
 
-transcribe(num)
-int num;
+int transcribe(int num)
 {
 
 	/* Note that we must add the first bracket... */
@@ -73,7 +72,7 @@ int num;
 
 /* "Gensym" for user supplied C code names. */
 
-newnum()
+int newnum()
 {
 	static int n = 0;
 

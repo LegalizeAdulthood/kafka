@@ -16,6 +16,13 @@ int nlk = 0;		/* # characters pushed back. */
 extern FILE *inp;	/* The input file. */
 extern int yylval;
 
+#ifdef _WIN32
+inline int isatty(int n)
+{
+    return 1;
+}
+#endif
+
 %}
 
 %%
@@ -85,7 +92,8 @@ extern int yylval;
 
 int lineno = 0;
 
-char input()
+
+int input(void)
 {
 	int c;
 	if (nlk == 0) {
@@ -102,16 +110,17 @@ char input()
 	}
 }
 
-unput(c)
-char c;
+#ifdef unput
+#undef unput
+#endif
+void unput(char c)
 {
 	lookahead[nlk++] = c;
-	return;
 }
 
 /* Don't need this thing... */
 
-yywrap()
+int yywrap()
 {
 	return (1);
 }
