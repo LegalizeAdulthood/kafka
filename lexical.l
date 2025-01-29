@@ -23,6 +23,7 @@ inline int isatty(int n)
 }
 #endif
 
+#define YY_NO_INPUT
 %}
 
 %%
