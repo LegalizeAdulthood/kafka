@@ -13,7 +13,7 @@
 
 #include "dstrans.h"
 #include "init.h"
-#include "parse.h"
+#include "kafka_parser.h"
 
 #define USAGE { printf("Usage: kafka [sourcefile] [-v].\n"); exit(1); }
 
