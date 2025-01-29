@@ -9,13 +9,16 @@
  */
 
 #include <stdio.h>
+#include <stdlib.h>
+
+#include "maketext.h"
+#include "output.h"
 
 #define DEFAULT 3
 
 int nflag = 0;
 
-main(ac, av)
-char **av;
+int main(int ac, char **av)
 {
 	/* The main function for babble. */
 
