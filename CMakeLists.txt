@@ -36,19 +36,19 @@ if(BUILD_RUNTIME)
         FOLDER "Libraries")
 endif()
 
-bison_target(parser parse.y "${CMAKE_CURRENT_BINARY_DIR}/parser.c"
-    DEFINES_FILE "${CMAKE_CURRENT_BINARY_DIR}/parser.h")
+bison_target(parser parse.y "${CMAKE_CURRENT_BINARY_DIR}/parse.c"
+    DEFINES_FILE "${CMAKE_CURRENT_BINARY_DIR}/include/parse.h")
 flex_target(lexer lexical.l "${CMAKE_CURRENT_BINARY_DIR}/lexer.c"
     COMPILE_FLAGS "${LEXER_FLAGS}"
-    DEFINES_FILE "${CMAKE_CURRENT_BINARY_DIR}/lexer.h")
+    DEFINES_FILE "${CMAKE_CURRENT_BINARY_DIR}/include/lexer.h")
 add_flex_bison_dependency(lexer parser)
 
 add_executable(kafka 
     defs.h
     graph.h
     kafgraf.h
-    dstrans.c
-    init.c
+    dstrans.h dstrans.c
+    init.h init.c
     main.c
     psubr.c
     stuff.c
@@ -58,7 +58,7 @@ add_executable(kafka
     ${BISON_parser_OUTPUTS}
 )
 source_group("Parser Files" REGULAR_EXPRESSION "^.*\\.[ly]$")
-target_include_directories(kafka PUBLIC .)
+target_include_directories(kafka PUBLIC . "${CMAKE_CURRENT_BINARY_DIR}/include")
 set_target_properties(kafka PROPERTIES
     LINKER_LANGUAGE C
     FOLDER "Tools")

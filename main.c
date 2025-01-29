@@ -8,14 +8,19 @@
  */
 
 #include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+#include "dstrans.h"
+#include "init.h"
+#include "parse.h"
 
 #define USAGE { printf("Usage: kafka [sourcefile] [-v].\n"); exit(1); }
 
 int vflag = 0;
 char *sourcefile = NULL;
 
-main(ac, av)
-char **av;
+int main(int ac, char **av)
 {
 	int ch;
 

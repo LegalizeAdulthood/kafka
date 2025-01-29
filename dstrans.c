@@ -10,16 +10,20 @@
  * all links between these are made explicit here. Also all nodes are
  * linked together in a list, for the purpose of searching for names.
  */
+#include "dstrans.h"
 
 #include "kafgraf.h"
 #include "defs.h"
+
 #include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
 
 extern struct knode *hashtab[];
 extern FILE *specp;		/* The file to output to. */
 int errp = 0;
 
-dstrans() 
+void dstrans(void)
 {
 	struct knode *nt, *wk, *lf;
 	struct karc *tarc;
@@ -138,7 +142,7 @@ dstrans()
 
 /* Diagnostic routine. */
 
-dumpdata()
+void dumpdata(void)
 {
 
 	int hpos;

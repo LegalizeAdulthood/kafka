@@ -4,6 +4,7 @@
  *	Permission is granted to do anything with this code except sell it
  *	or remove this message.
  */
+#include "init.h"
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -13,7 +14,7 @@ FILE *specp = NULL;
 FILE *infile = NULL;
 extern char *sourcefile;
 
-int init()
+int init(void)
 {
 	/* These should be only defaults here... */
 
@@ -37,4 +38,3 @@ int init()
 	fprintf(specp, "#include \"kafgraf.h\"\n\n");
 	return (0);
 }
-
