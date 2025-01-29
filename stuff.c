@@ -1,4 +1,3 @@
-
 /* RCS Info: $Revision: $ on $Date: $
  *           $Source: $
  * Copyright (c) 1985 Wayne A. Christopher 
@@ -7,6 +6,7 @@
  *
  * Assorted things.
  */
+#include "stuff.h"
 
 #include <stdio.h>
 
@@ -14,7 +14,7 @@ extern FILE *specp, *textp;
 
 /* This should exist somewhere. It should be first in the file... */
 
-char *itoa(num)
+char *itoa(int num)
 {
 	static char buf[32];
 	int p;
@@ -32,8 +32,7 @@ char *itoa(num)
  * They probably don't need to be very big, and the fn is simple...
  */
 
-phash(string)
-char *string;
+unsigned char phash(char *string)
 {
 	unsigned char rv = 0;
 	while (*string) 
@@ -72,7 +71,7 @@ int transcribe(int num)
 
 /* "Gensym" for user supplied C code names. */
 
-int newnum()
+int newnum(void)
 {
 	static int n = 0;
 
@@ -82,11 +81,10 @@ int newnum()
 
 /* "Gensym" for arcnumbers and nodenumbers. */
 
-newnum2()
+int newnum2(void)
 {
 	static int n = 0;
 
 	n++;
 	return (n);
 }
-

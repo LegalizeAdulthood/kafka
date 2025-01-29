@@ -51,7 +51,7 @@ add_executable(kafka
     init.h init.c
     main.c
     psubr.c
-    stuff.c
+    stuff.h stuff.c
     parse.y
     lexical.l
     ${FLEX_lexer_OUTPUTS}
