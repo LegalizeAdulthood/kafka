@@ -16,7 +16,7 @@
 #include "lexer.h"
 
 char buf[BUFSIZ];
-extern FILE *inp;
+extern FILE *infile;
 extern struct karc *avarc;
 extern void copyccode();
 extern void newrule(char *name);
@@ -51,7 +51,7 @@ tail	:	/* Empty. */
 			extern FILE *textp;
 
 			do {
-				n = fread(buf, 1, BUFSIZ, inp);
+				n = fread(buf, 1, BUFSIZ, infile);
 				fwrite(buf, 1, n, textp);
 			} while (n == BUFSIZ);
 			}

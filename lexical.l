@@ -13,7 +13,7 @@
 
 char lookahead[100];	/* For pushback of characters. */
 int nlk = 0;		/* # characters pushed back. */
-extern FILE *inp;	/* The input file. */
+extern FILE *infile;	/* The input file. */
 extern int yylval;
 
 #ifdef _WIN32
@@ -97,7 +97,7 @@ int input(void)
 {
 	int c;
 	if (nlk == 0) {
-		c = getc(inp);
+		c = getc(infile);
 		if (c == '\n') 
 			lineno++;
 		if (c == EOF) 
