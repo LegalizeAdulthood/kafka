@@ -13,7 +13,7 @@
 #include <stdio.h>
 //#include <strings.h>
 #include "kafgraf.h"
-#include "lexer.h"
+#include "kafka_lexer.h"
 
 char buf[BUFSIZ];
 extern FILE *infile;
