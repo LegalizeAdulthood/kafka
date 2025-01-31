@@ -1,3 +1,6 @@
+include(CheckIncludeFile)
+include(CheckSymbolExists)
+
 set(HAS_GETPID OFF)
 check_include_file(process.h HAS_PROCESS_H)
 check_include_file(unistd.h HAS_UNISTD_H)
