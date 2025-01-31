@@ -10,7 +10,8 @@ jobs:
   build:
     strategy:
       matrix:
-        os: [ ubuntu-latest, windows-latest, macos-latest ]
+        # macos-latest dropped until we can figure out how to update bison
+        os: [ ubuntu-latest, windows-latest ]
     runs-on: ${{matrix.os}}
     env:
       VCPKG_BINARY_SOURCES: "clear;x-gha,readwrite"
