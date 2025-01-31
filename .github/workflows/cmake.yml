@@ -31,9 +31,7 @@ jobs:
       if: ${{matrix.os == 'macos-latest'}}
       run: |
         brew install flex bison
-        (echo /opt/homebrew/opt/flex/bin; echo /opt/homebrew/opt/bison/bin; cat $GITHUB_PATH) > /tmp/github.path
-        cat /tmp/github.path
-        mv /tmp/github.path $GITHUB_PATH
+        (echo /opt/homebrew/opt/flex/bin; echo /opt/homebrew/opt/bison/bin) >> $GITHUB_PATH
 
     - name: Run Workflow
       run: cmake --workflow --preset default
