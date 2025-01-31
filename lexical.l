@@ -9,12 +9,14 @@
  * The lexical analyzer for kafka.
  */
 
-#include "y.tab.h"
+#include "kafka_parser.h"
+#include "init.h"
+#include <stdexcept>
 
 char lookahead[100];	/* For pushback of characters. */
 int nlk = 0;		/* # characters pushed back. */
 extern FILE *infile;	/* The input file. */
-extern int yylval;
+extern char *yylval;
 
 #ifdef _WIN32
 inline int isatty(int n)
@@ -23,15 +25,14 @@ inline int isatty(int n)
 }
 #endif
 
-#define YY_NO_INPUT
 %}
 
 %%
 
 \<[^ \t\n]*\>		{ /* A non-terminal. */
 			yytext[yyleng - 1] = '\0';
-			yylval = (int) (yytext + 1);
-			return (NONTERM);
+			yylval = (yytext + 1);
+			return NONTERM;
 			}
 
 [ \t\n]*		{ /* White space. */
@@ -41,47 +42,47 @@ inline int isatty(int n)
 			}
 
 [^ \"\t\n=\<\>;\{\}\%]*	{ /* An unquoted terminal string. */
-			yylval = (int) yytext;
-			return (TERM);
+			yylval = yytext;
+			return TERM;
 			}
 
 \"[^\"]*\"		{ /* A quoted terminal. */
 			yytext[yyleng - 1] = '\0';
-			yylval = (int) (yytext + 1);
-			return (TERM);
+			yylval = (yytext + 1);
+			return TERM;
 			}
 
 =			{ /* The rule operator. */
-			return (RULEOP);
+			return RULEOP;
 			}
 
 ^\%\%			{ /* The section seperator. */
-			return (SSEP);
+			return SSEP;
 			}
 
 ^\%[A-Za-z].*$		{ /* A kafka escape. */
-			yylval = (int) yytext[1];
-			return (KESC);
+			yylval = &yytext[1];
+			return KESC;
 			}
 
 ^\%\{			{ /* Begin def section C code. */
-			return (COPEN);
+			return COPEN;
 			}
 
 ^\%\}			{ /* End def section C code. */
-			return (CCLOSE);
+			return CCLOSE;
 			}
 
 \{			{ /* Open brace. */
-			return (LBRACE);
+			return LBRACE;
 			}
 
 \}			{ /* Close brace. */
-			return (RBRACE);
+			return RBRACE;
 			}
 
 \;			{ /* Semicolon. */
-			return (SEMI);
+			return SEMI;
 			}
 
 
@@ -91,38 +92,19 @@ inline int isatty(int n)
  * other routines. 
  */
 
-int lineno = 0;
-
-
-int input(void)
+int lex_input()
 {
-	int c;
-	if (nlk == 0) {
-		c = getc(infile);
-		if (c == '\n') 
-			lineno++;
-		if (c == EOF) 
-			return (0);
-		else
-			return (c);
-	} else {
-		c = lookahead[--nlk];
-		return (c);
-	}
+    return yyinput();
 }
 
-#ifdef unput
-#undef unput
-#endif
-void unput(char c)
+void lex_unput(char c)
 {
-	lookahead[nlk++] = c;
+    yyunput( c, (yytext_ptr)  );
 }
 
 /* Don't need this thing... */
 
 int yywrap()
 {
-	return (1);
+    return 1;
 }
-

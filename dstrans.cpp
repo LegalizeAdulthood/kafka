@@ -12,8 +12,9 @@
  */
 #include "dstrans.h"
 
-#include "kafgraf.h"
 #include "defs.h"
+#include "kafgraf.h"
+#include "stuff.h"
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -23,13 +24,13 @@ extern struct knode *hashtab[];
 extern FILE *specp;		/* The file to output to. */
 int errp = 0;
 
-void dstrans(void)
+void dstrans()
 {
 	struct knode *nt, *wk, *lf;
 	struct karc *tarc;
 	int a;
 	char *it;			/* Temp char *. */
-	unsigned char b, phash();	/* For lookup of node names. */
+	unsigned char b;		/* For lookup of node names. */
 	char lastnode[32];
 
 	/* dumpdata(); Diagnostic. */
@@ -142,7 +143,7 @@ void dstrans(void)
 
 /* Diagnostic routine. */
 
-void dumpdata(void)
+void dumpdata()
 {
 
 	int hpos;

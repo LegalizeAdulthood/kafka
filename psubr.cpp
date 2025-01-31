@@ -1,13 +1,14 @@
-
 /* RCS Info: $Revision: $ on $Date: $
  *           $Source: $
- * Copyright (c) 1985 Wayne A. Christopher 
+ * Copyright (c) 1985 Wayne A. Christopher
  *	Permission is granted to do anything with this code except sell it
  *	or remove this message.
  *
  * Routines for the parser. These create and maintain the graph that the
  * parser is responsible for.
  */
+
+#include "psubr.h"
 
 #include "kafgraf.h"
 #include "stuff.h"
@@ -20,9 +21,6 @@ struct knode *n;
 struct knode *hashtab[256];
 struct karc *avarc;
 int i, c;
-
-int input(void);
-void unput(char c);
 
 /* Enter a new rule. */
 
@@ -67,7 +65,7 @@ gotit:
 /* Enter a computed terminal. */
 
 
-void docompterm(void)
+void docompterm()
 {
 	int fnum;
 
@@ -136,22 +134,22 @@ void doterm(char *name)
 
 /* Copy C code in defs section. */
 
-void copyccode(void)
+void copyccode()
 {
 	int c;
 	extern FILE *textp;
 
 	for (;;) {
-		while ((c = input()) != '\n') {
+		while ((c = lex_input()) != '\n') {
 			if (c == '\0') {
 				fprintf(stderr, "Unexpected EOF.\n");
 				exit(1);
 			}
 			putc(c, textp);
 		}
-		c = input();
+		c = lex_input();
 		if (c == '%') {
-/* { boo hiss */	if ((c = input()) == '}')
+/* { boo hiss */	if ((c = lex_input()) == '}')
 				return;
 			putc('\n', textp);
 			putc('%', textp);
@@ -159,7 +157,7 @@ void copyccode(void)
 			continue;
 		}
 		putc('\n', textp);
-		unput(c);
+		lex_unput(c);
 	}
 }
 

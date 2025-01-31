@@ -13,8 +13,9 @@ FILE *textp = NULL;
 FILE *specp = NULL;
 FILE *infile = NULL;
 extern char *sourcefile;
+int lineno{};
 
-int init(void)
+int init()
 {
 	/* These should be only defaults here... */
 

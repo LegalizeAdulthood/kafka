@@ -11,7 +11,6 @@
  */
 
 #include <stdio.h>
-//#include <strings.h>
 #include "kafgraf.h"
 #include "kafka_lexer.h"
 
@@ -27,9 +26,9 @@ extern void dononterm(char *name);
 extern void doterm(char *name);
 void yyerror(const char *text);
 
-#define YYSTYPE char *
-
 %}
+
+%define api.value.type {char *}
 
 %start spec
 

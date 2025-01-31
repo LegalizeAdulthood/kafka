@@ -8,6 +8,8 @@
  */
 #include "stuff.h"
 
+#include "psubr.h"
+
 #include <stdio.h>
 
 extern FILE *specp, *textp;
@@ -37,13 +39,12 @@ int transcribe(int num)
 	/* Note that we must add the first bracket... */
 
 	extern FILE *textp;
-	extern char input();
 	char c;
 	int brct;
 
 	fprintf(textp, "\n_kkFunc%d ()\n{\n", num);
 	brct = 1;
-	while (c = input()) {	/* This is the lex input function. */
+	while (c = lex_input()) {	/* This is the lex input function. */
 		if (c == '{') brct++;
 		if (c == '}') brct--;
 		putc(c, textp);
@@ -55,7 +56,7 @@ int transcribe(int num)
 
 /* "Gensym" for user supplied C code names. */
 
-int newnum(void)
+int newnum()
 {
 	static int n = 0;
 
@@ -65,7 +66,7 @@ int newnum(void)
 
 /* "Gensym" for arcnumbers and nodenumbers. */
 
-int newnum2(void)
+int newnum2()
 {
 	static int n = 0;
 

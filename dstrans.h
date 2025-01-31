@@ -1,4 +1,5 @@
 #pragma once
 
-void dstrans(void);
-void dumpdata(void);
+void dstrans();
+void dumpdata();
+extern int errp;

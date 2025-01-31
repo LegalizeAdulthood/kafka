@@ -13,6 +13,7 @@
 
 #include "dstrans.h"
 #include "init.h"
+#include "kafka_lexer.h"
 #include "kafka_parser.h"
 
 #define USAGE { printf("Usage: kafka [sourcefile] [-v].\n"); exit(1); }
@@ -51,6 +52,7 @@ int main(int ac, char **av)
 
 	/* Set up the files, */
 	init();
+        yyin = infile;
 
 	/* read in the information, */
 	yyparse();

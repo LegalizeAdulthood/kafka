@@ -21,24 +21,24 @@ set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 set(KAFKA_PROJECT_NAME "Kafka" CACHE "STRING" "Default project name for IDEs")
-project("${KAFKA_PROJECT_NAME}" C)
+project("${KAFKA_PROJECT_NAME}" CXX)
 
 include(CTest)
 
 if(BUILD_RUNTIME)
     add_library(runtime
-        etc.c
-        maketext.c
-        output.c
+        etc.cpp
+        maketext.cpp
+        output.cpp
     )
     set_target_properties(runtime PROPERTIES
-        LINKER_LANGUAGE C
+        LINKER_LANGUAGE CXX
         FOLDER "Libraries")
 endif()
 
-bison_target(parser parse.y "${CMAKE_CURRENT_BINARY_DIR}/kafka_parser.c"
+bison_target(parser parse.y "${CMAKE_CURRENT_BINARY_DIR}/kafka_parser.cpp"
     DEFINES_FILE "${CMAKE_CURRENT_BINARY_DIR}/kafka_parser.h")
-flex_target(lexer lexical.l "${CMAKE_CURRENT_BINARY_DIR}/kafka_lexer.c"
+flex_target(lexer lexical.l "${CMAKE_CURRENT_BINARY_DIR}/kafka_lexer.cpp"
     COMPILE_FLAGS "${LEXER_FLAGS}"
     DEFINES_FILE "${CMAKE_CURRENT_BINARY_DIR}/kafka_lexer.h")
 add_flex_bison_dependency(lexer parser)
@@ -47,11 +47,11 @@ add_executable(kafka
     defs.h
     graph.h
     kafgraf.h
-    dstrans.h dstrans.c
-    init.h init.c
-    main.c
-    psubr.h psubr.c
-    stuff.h stuff.c
+    dstrans.h dstrans.cpp
+    init.h init.cpp
+    main.cpp
+    psubr.h psubr.cpp
+    stuff.h stuff.cpp
     parse.y
     lexical.l
     ${FLEX_lexer_OUTPUTS}
@@ -60,7 +60,7 @@ add_executable(kafka
 source_group("Parser Files" REGULAR_EXPRESSION "^.*\\.[ly]$")
 target_include_directories(kafka PUBLIC . "${CMAKE_CURRENT_BINARY_DIR}")
 set_target_properties(kafka PROPERTIES
-    LINKER_LANGUAGE C
+    LINKER_LANGUAGE CXX
     FOLDER "Tools")
 
 set_property(DIRECTORY PROPERTY VS_STARTUP_PROJECT kafka)

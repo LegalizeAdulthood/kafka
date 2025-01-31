@@ -1,3 +1,8 @@
 #pragma once
 
-int init(void);
+#include <stdio.h>
+
+int init();
+extern FILE *infile;
+extern FILE *textp;
+extern int lineno;
