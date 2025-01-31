@@ -10,8 +10,7 @@ jobs:
   build:
     strategy:
       matrix:
-        # macos-latest dropped until we can figure out how to update bison
-        os: [ ubuntu-latest, windows-latest ]
+        os: [ ubuntu-latest, windows-latest, macos-latest ]
     runs-on: ${{matrix.os}}
     env:
       VCPKG_BINARY_SOURCES: "clear;x-gha,readwrite"
@@ -27,6 +26,12 @@ jobs:
         script: |
           core.exportVariable('ACTIONS_CACHE_URL', process.env.ACTIONS_CACHE_URL || '');
           core.exportVariable('ACTIONS_RUNTIME_TOKEN', process.env.ACTIONS_RUNTIME_TOKEN || '');
+
+    - name: Update Dependencies
+      if: ${{matrix.os != 'macos-latest'}}
+      run: |
+        brew install flex bison
+        export PATH="/opt/homebrew/opt/flex/bin:/opt/homebrew/opt/bison/bin:$PATH"
 
     - name: Run Workflow
       run: cmake --workflow --preset default
