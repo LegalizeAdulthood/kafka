@@ -28,7 +28,7 @@ jobs:
           core.exportVariable('ACTIONS_RUNTIME_TOKEN', process.env.ACTIONS_RUNTIME_TOKEN || '');
 
     - name: Update Dependencies
-      if: ${{matrix.os != 'macos-latest'}}
+      if: ${{matrix.os == 'macos-latest'}}
       run: |
         brew install flex bison
         export PATH="/opt/homebrew/opt/flex/bin:/opt/homebrew/opt/bison/bin:$PATH"
