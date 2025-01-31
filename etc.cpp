@@ -11,6 +11,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+#include <config/getpid.h>
+
 #include "maketext.h"
 #include "output.h"
 
@@ -25,7 +27,7 @@ int main(int ac, char **av)
 	int i, j;
 	extern int lpos;
 
-	srandom(getpid());
+	srand(getpid());
 
 	if (ac > 1) {
 		j = atoi(av[1]);
@@ -52,7 +54,7 @@ int main(int ac, char **av)
 	}
 	i = DEFAULT;
 	while (i--) {
-		srandom(random());
+		srand(rand());
 		maketext("start");
 		kkoutput("@");
 	}

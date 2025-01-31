@@ -25,16 +25,15 @@ project("${KAFKA_PROJECT_NAME}" CXX)
 
 include(CTest)
 
-if(BUILD_RUNTIME)
-    add_library(runtime
-        etc.cpp
-        maketext.cpp
-        output.cpp
-    )
-    set_target_properties(runtime PROPERTIES
-        LINKER_LANGUAGE CXX
-        FOLDER "Libraries")
-endif()
+add_library(runtime
+    kafgraf.h
+    etc.cpp
+    maketext.cpp
+    output.cpp
+)
+set_target_properties(runtime PROPERTIES FOLDER "Libraries")
+target_link_libraries(runtime PUBLIC config)
+target_include_directories(runtime PUBLIC .)
 
 bison_target(parser parse.y "${CMAKE_CURRENT_BINARY_DIR}/kafka_parser.cpp"
     DEFINES_FILE "${CMAKE_CURRENT_BINARY_DIR}/kafka_parser.h")
@@ -59,11 +58,34 @@ add_executable(kafka
 )
 source_group("Parser Files" REGULAR_EXPRESSION "^.*\\.[ly]$")
 target_include_directories(kafka PUBLIC . "${CMAKE_CURRENT_BINARY_DIR}")
-set_target_properties(kafka PROPERTIES
-    LINKER_LANGUAGE CXX
-    FOLDER "Tools")
+set_target_properties(kafka PROPERTIES FOLDER "Tools")
 
 set_property(DIRECTORY PROPERTY VS_STARTUP_PROJECT kafka)
+
+function(kafka_target name)
+    add_executable(${name}
+        ${name}.k
+        "${CMAKE_CURRENT_BINARY_DIR}/kaf.spec.cpp"
+        "${CMAKE_CURRENT_BINARY_DIR}/kaf.text.cpp"
+    )
+    source_group("Kafka Files" REGULAR_EXPRESSION ".*\\.k$")
+    target_link_libraries(${name} PUBLIC runtime)
+    set_target_properties(${name} PROPERTIES
+        LINKER_LANGUAGE CXX
+        FOLDER "Kafka Generators")
+    add_custom_command(OUTPUT
+            "${CMAKE_CURRENT_BINARY_DIR}/kaf.spec.cpp"
+            "${CMAKE_CURRENT_BINARY_DIR}/kaf.text.cpp"
+        COMMAND kafka "${CMAKE_CURRENT_LIST_DIR}/${name}.k"
+        MAIN_DEPENDENCY ${name}.k
+        DEPENDS kafka
+        COMMENT "Kafka ${name}"
+    )
+endfunction()
+
+kafka_target(babble)
+
+add_subdirectory(config)
 
 if(BUILD_TESTING)
     add_subdirectory(tests)

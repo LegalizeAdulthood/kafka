@@ -23,7 +23,9 @@
 
 %{
 
-#define CH(n, o)	return ((((random() - 1313513) % o) < n) ? 1 : 0)
+#include <stdlib.h>
+
+#define CH(n, o)	return ((((rand() - 1313513) % o) < n) ? 1 : 0)
 /* I think there used to be a reason for doing ^^^ this... */
 
 %}

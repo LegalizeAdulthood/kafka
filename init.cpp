@@ -19,12 +19,12 @@ int init()
 {
 	/* These should be only defaults here... */
 
-	if ((textp = fopen("kaf.text.c", "w")) == NULL) {
-		perror("kaf.text.c");
+	if ((textp = fopen("kaf.text.cpp", "w")) == NULL) {
+		perror("kaf.text.cpp");
 		exit(1);
 	}
-	if ((specp = fopen("kaf.spec.c", "w")) == NULL) {
-		perror("kaf.spec.c");
+	if ((specp = fopen("kaf.spec.cpp", "w")) == NULL) {
+		perror("kaf.spec.cpp");
 		exit(1);
 	}
 	if (!sourcefile)

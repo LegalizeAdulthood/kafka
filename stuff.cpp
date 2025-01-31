@@ -42,7 +42,7 @@ int transcribe(int num)
 	char c;
 	int brct;
 
-	fprintf(textp, "\n_kkFunc%d ()\n{\n", num);
+	fprintf(textp, "\nint _kkFunc%d()\n{\n", num);
 	brct = 1;
 	while (c = lex_input()) {	/* This is the lex input function. */
 		if (c == '{') brct++;

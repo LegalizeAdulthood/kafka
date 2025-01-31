@@ -7,7 +7,9 @@
  *	or remove this message.
  */
 
-#define CH(n, o)	return ((((random() - 1313513) % o) < n) ? 1 : 0)
+#include <stdlib.h>
+
+#define CH(n, o)	return ((((rand() - 1313513) % o) < n) ? 1 : 0)
 
 char *ones;
 

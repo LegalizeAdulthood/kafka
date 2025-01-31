@@ -12,12 +12,13 @@
 
 #include <stdio.h>
 #include <ctype.h>
+#include <stdlib.h>
 
 #define CH(n, o)	return (((rnum() % o) < n) ? 1 : 0)
 
 rnum()
 {
-	return (random());
+	return (rand());
 }
 
 char *ones;
@@ -341,7 +342,7 @@ getword(type)
 {
 	char **wds;
 	int i = 0, j = 0, k;
-	int alliterate = lastchoice ? (random() % 4) : 0;
+	int alliterate = lastchoice ? (rand() % 4) : 0;
 
 	switch (type) {
 		case 1: wds = words1; break;
