@@ -86,7 +86,7 @@ nextarc:
              * don't bother declaring these functions to be
              * char *.
              */
-            kkcv = (int) (*kknn->kk_func)();
+            kkcv = (*kknn->kk_func)();
             if (kkcv == NULL)
             { /* Doesn't like this rule. */
                 kksp->ke_arc = kksp->ke_arc->kc_narc;
