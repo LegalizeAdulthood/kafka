@@ -20,14 +20,14 @@
 #include <stdlib.h>
 #include <string.h>
 
-extern struct knode *hashtab[];
+extern knode *hashtab[];
 extern FILE *specp; /* The file to output to. */
 int errp = 0;
 
 void dstrans()
 {
-    struct knode *nt, *wk, *lf;
-    struct karc *tarc;
+    knode *nt, *wk, *lf;
+    karc *tarc;
     int a;
     char *it;        /* Temp char *. */
     unsigned char b; /* For lookup of node names. */
@@ -149,8 +149,8 @@ void dstrans()
 void dumpdata()
 {
     int hpos;
-    struct knode *nont, *rule;
-    struct karc *arc;
+    knode *nont, *rule;
+    karc *arc;
 
     for (hpos = 0; hpos < HASHSIZE; hpos++)
     {

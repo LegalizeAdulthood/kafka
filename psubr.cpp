@@ -17,16 +17,16 @@
 #include <stdlib.h>
 #include <string.h>
 
-struct knode *n;
-struct knode *hashtab[256];
-struct karc *avarc;
+knode *n;
+knode *hashtab[256];
+karc *avarc;
 int i, c;
 
 /* Enter a new rule. */
 
 void newrule(char *name)
 {
-    struct knode *prev;
+    knode *prev;
     unsigned char hashind;
 
     hashind = phash(name);
@@ -38,7 +38,7 @@ void newrule(char *name)
             {
                 while (n->kn_next)
                     n = n->kn_next;
-                n->kn_next = (struct knode *) malloc(sizeof(struct knode));
+                n->kn_next = (knode *) malloc(sizeof(knode));
                 n = n->kn_next;
                 goto gotit;
             }
@@ -46,12 +46,12 @@ void newrule(char *name)
         }
         if (n == NULL)
         {
-            n = prev->kn_nnt = (struct knode *) malloc(sizeof(struct knode));
+            n = prev->kn_nnt = (knode *) malloc(sizeof(knode));
         }
     }
     else
     {
-        hashtab[hashind] = (struct knode *) malloc(sizeof(struct knode));
+        hashtab[hashind] = (knode *) malloc(sizeof(knode));
         n = hashtab[hashind];
     }
 gotit:
@@ -102,12 +102,12 @@ void dononterm(char *name)
      */
     if (avarc)
     {
-        avarc->ka_narc = (struct karc *) malloc(sizeof(struct karc));
+        avarc->ka_narc = (karc *) malloc(sizeof(karc));
         avarc = avarc->ka_narc;
     }
     else
     { /* This is the first one. */
-        avarc = (struct karc *) malloc(sizeof(struct karc));
+        avarc = (karc *) malloc(sizeof(karc));
         n->kn_arc = avarc;
     }
     strcpy(avarc->ka_toname, name);
@@ -125,12 +125,12 @@ void doterm(char *name)
 
     if (avarc)
     {
-        avarc->ka_narc = (struct karc *) malloc(sizeof(struct karc));
+        avarc->ka_narc = (karc *) malloc(sizeof(karc));
         avarc = avarc->ka_narc;
     }
     else
     { /* This is the first arc. */
-        avarc = (struct karc *) malloc(sizeof(struct karc));
+        avarc = (karc *) malloc(sizeof(karc));
         n->kn_arc = avarc;
     }
     strcpy(avarc->ka_toname, name);
