@@ -1,6 +1,6 @@
 /* RCS Info: $Revision: $ on $Date: $
  *           $Source: $
- * Copyright (c) 1985 Wayne A. Christopher 
+ * Copyright (c) 1985 Wayne A. Christopher
  *      Permission is granted to do anything with this code except sell it
  *      or remove this message.
  *
@@ -16,7 +16,11 @@
 #include "kafka_lexer.h"
 #include "kafka_parser.h"
 
-#define USAGE { printf("Usage: kafka [sourcefile] [-v].\n"); exit(1); }
+#define USAGE                                        \
+    {                                                \
+        printf("Usage: kafka [sourcefile] [-v].\n"); \
+        exit(1);                                     \
+    }
 
 int yyparse(void);
 
@@ -25,53 +29,56 @@ char *sourcefile = NULL;
 
 int main(int ac, char **av)
 {
-        int ch;
+    int ch;
 
-        for (ch = 1; ch < ac; ch++) {
-                if (!strcmp(av[ch], "-v")) {
-                        vflag++;
-                        continue;
-                }
-                if (!strcmp(av[ch], "-t")) {
-                        /* Do textfile option. (Unimplemented...) */
-                        ch++;
-                        continue;
-                }
-                if (!strcmp(av[ch], "-s")) {
-                        /* Do specfile option. (Unimplemented...) */
-                        ch++;
-                        continue;
-                }
-                /* Sourcefile. */
-                if (sourcefile)
-                        USAGE;
-                sourcefile = av[ch];
+    for (ch = 1; ch < ac; ch++)
+    {
+        if (!strcmp(av[ch], "-v"))
+        {
+            vflag++;
+            continue;
         }
-        if (!sourcefile) 
-                USAGE;
+        if (!strcmp(av[ch], "-t"))
+        {
+            /* Do textfile option. (Unimplemented...) */
+            ch++;
+            continue;
+        }
+        if (!strcmp(av[ch], "-s"))
+        {
+            /* Do specfile option. (Unimplemented...) */
+            ch++;
+            continue;
+        }
+        /* Sourcefile. */
+        if (sourcefile)
+            USAGE;
+        sourcefile = av[ch];
+    }
+    if (!sourcefile)
+        USAGE;
 
-        /* Set up the files, */
-        init();
-        yyin = infile;
+    /* Set up the files, */
+    init();
+    yyin = infile;
 
-        /* read in the information, */
-        yyparse();
+    /* read in the information, */
+    yyparse();
 
-        /* and write it out. */
-        dstrans();
+    /* and write it out. */
+    dstrans();
 
-        /* That's all... */
-        exit(0);
+    /* That's all... */
+    exit(0);
 }
 
 /* The error handler. This could use work. */
 
 void yyerror(const char *text)
 {
-        extern int lineno, errp;
+    extern int lineno, errp;
 
-        fprintf(stderr, "Syntax error in line %d.\n", lineno);
-        fflush(stderr);
-        errp = 1;
+    fprintf(stderr, "Syntax error in line %d.\n", lineno);
+    fflush(stderr);
+    errp = 1;
 }
-
