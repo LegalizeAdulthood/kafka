@@ -16,10 +16,10 @@
 
 extern void kkoutput(char *string);
 
-struct kkelt kkstack[STACKSIZE]; /* The stack. */
-struct kkelt *kksp;              /* The stack pointer. */
-extern struct kknode *start;
-extern struct kknode *nodelist;
+kkelt kkstack[STACKSIZE]; /* The stack. */
+kkelt *kksp;              /* The stack pointer. */
+extern kknode *start;
+extern kknode *nodelist;
 
 /* This routine is the one that generates a string in the grammer,
  * beginning with the non-terminal s. Returns -1 if s is not the
@@ -28,7 +28,7 @@ extern struct kknode *nodelist;
 
 int maketext(char *s)
 {
-    struct kknode *stnode, *kknn;
+    kknode *stnode, *kknn;
     int kkcv;
 
     /* First find the start node. */
