@@ -16,11 +16,14 @@
 #include "kafka_lexer.h"
 #include "kafka_parser.h"
 
-#define USAGE                                        \
-    {                                                \
-        printf("Usage: kafka [sourcefile] [-v].\n"); \
-        exit(1);                                     \
-    }
+[[noreturn]]
+void usage()
+{
+    printf("Usage: kafka [sourcefile] [-v].\n");
+    exit(1);
+}
+
+#define USAGE usage()
 
 int yyparse(void);
 
@@ -52,11 +55,15 @@ int main(int ac, char **av)
         }
         /* Sourcefile. */
         if (sourcefile)
-            USAGE;
+        {
+            usage();
+        }
         sourcefile = av[ch];
     }
     if (!sourcefile)
-        USAGE;
+    {
+        usage();
+    }
 
     /* Set up the files, */
     init();
