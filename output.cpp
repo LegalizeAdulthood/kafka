@@ -9,14 +9,21 @@
  */
 #include "output.h"
 
+#include <cctype>
 #include <stdio.h>
 
 extern int nflag;
 
-#define vowel(c)                                                                                                     \
-    ((c == 'a') || (c == 'e') || (c == 'i') || (c == 'o') || (c == 'u') || (c == 'A') || (c == 'E') || (c == 'I') || \
-        (c == 'O') || (c == 'U'))
-#define wspace(c) ((c == ' ') || (c == '\n') || (c == '\t'))
+inline bool vowel(char c)
+{
+    c = std::tolower(c);
+    return c == 'a' || c == 'e' || c == 'i' || c == 'o' || c == 'u';
+}
+
+inline bool wspace(char c)
+{
+    return c == ' ' || c == '\n' || c == '\t';
+}
 
 int lpos = 0;
 
