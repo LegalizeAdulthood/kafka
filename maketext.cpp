@@ -92,12 +92,10 @@ nextarc:
                 kksp->ke_arc = kksp->ke_arc->kc_narc;
                 goto nextarc;
             }
-            else
-            { /* Cool. */
-                kkoutput((char *) kkcv);
-                kksp->ke_arc = kksp->ke_arc->kc_narc;
-                goto nextarc;
-            }
+            /* Cool. */
+            kkoutput((char *) kkcv);
+            kksp->ke_arc = kksp->ke_arc->kc_narc;
+            goto nextarc;
         }
         /* It must be a real non-terminal then. Now decide
          * which rule to use.
