@@ -39,156 +39,153 @@ void kkoutput(char *string)
         text[tpos++] = ' ';
         return;
     }
-    else
+    a = 0;
+    if (text[0] >= 'a' && text[0] <= 'z')
     {
-        a = 0;
-        if (text[0] >= 'a' && text[0] <= 'z')
-        {
-            text[0] = text[0] - 'a' + 'A';
-        }
-        if (lpos > 64)
-        {
-            putchar('\n');
-            lpos = 0;
-        }
+        text[0] = text[0] - 'a' + 'A';
+    }
+    if (lpos > 64)
+    {
+        putchar('\n');
+        lpos = 0;
+    }
 loop:
-        if (a >= tpos)
+    if (a >= tpos)
+    {
+        tpos = 0;
+        return;
+    }
+    if (text[a] != ' ' && text[a] != '\t' && text[a] != '!' && text[a] != '\n' && text[a] != ',' && text[a] != '.' &&
+        text[a] != '?')
+    {
+        if ((text[a] == 'a') && ((a == 0) || wspace(text[a - 1])) && a < tpos && wspace(text[a + 1]))
         {
-            tpos = 0;
-            return;
-        }
-        if (text[a] != ' ' && text[a] != '\t' && text[a] != '!' && text[a] != '\n' && text[a] != ',' &&
-            text[a] != '.' && text[a] != '?')
-        {
-            if ((text[a] == 'a') && ((a == 0) || wspace(text[a - 1])) && a < tpos && wspace(text[a + 1]))
+            for (x = a + 1; x < tpos; x++)
             {
-                for (x = a + 1; x < tpos; x++)
+                if (!wspace(text[x]))
                 {
-                    if (!wspace(text[x]))
-                    {
-                        break;
-                    }
-                }
-                if ((x != tpos) && vowel(text[x]))
-                {
-                    putchar('a');
-                    putchar('n');
-                    a++;
-                    lpos += 2;
-                    goto loop;
+                    break;
                 }
             }
-            if (text[a] == '#')
+            if ((x != tpos) && vowel(text[x]))
             {
+                putchar('a');
+                putchar('n');
                 a++;
+                lpos += 2;
                 goto loop;
             }
-            if (text[a] == '%')
-            {
-                switch (text[++a])
-                {
-                case 'n':
-                {
-                    putchar('\n');
-                    lpos = 0;
-                    a++;
-                    break;
-                }
-                case 's':
-                {
-                    putchar(' ');
-                    lpos++;
-                    a++;
-                    break;
-                }
-                case 't':
-                {
-                    putchar('\t');
-                    lpos = (lpos / 8 + 1) * 8;
-                    a++;
-                    break;
-                }
-                default:
-                {
-                    putchar(text[a++]);
-                    lpos++;
-                    break;
-                }
-                }
-                goto loop;
-            }
-            putchar(text[a]);
-            lpos++;
+        }
+        if (text[a] == '#')
+        {
             a++;
             goto loop;
         }
-        if (text[a] == '.' || text[a] == ',' || text[a] == '!' || text[a] == '?')
+        if (text[a] == '%')
         {
-            putchar(text[a++]);
-            if (*(string + 1) == 'P')
+            switch (text[++a])
+            {
+            case 'n':
             {
                 putchar('\n');
-                putchar('\t');
-                lpos = 8;
-                goto loop;
-            }
-            while (text[a] == ' ' || text[a] == '\t' || text[a] == '\n')
-            {
+                lpos = 0;
                 a++;
-            }
-            goto space;
-        }
-        for (b = a; b < tpos; b++)
-        {
-            if (text[b] != ' ' && text[b] != '\t' && text[b] != '\n')
-            {
                 break;
             }
-        }
-        if (text[b] == '.' || text[b] == ',' || text[b] == '!' || text[b] == '?')
-        {
-            a = b;
+            case 's':
+            {
+                putchar(' ');
+                lpos++;
+                a++;
+                break;
+            }
+            case 't':
+            {
+                putchar('\t');
+                lpos = (lpos / 8 + 1) * 8;
+                a++;
+                break;
+            }
+            default:
+            {
+                putchar(text[a++]);
+                lpos++;
+                break;
+            }
+            }
             goto loop;
         }
-space:
-        for (x = a + 1; x < tpos; x++)
+        putchar(text[a]);
+        lpos++;
+        a++;
+        goto loop;
+    }
+    if (text[a] == '.' || text[a] == ',' || text[a] == '!' || text[a] == '?')
+    {
+        putchar(text[a++]);
+        if (*(string + 1) == 'P')
         {
-            if (!wspace(text[x]))
-            {
-                if (text[x] == '#')
-                {
-                    a = x + 1;
-                    goto loop;
-                }
-                break;
-            }
-        }
-        if ((lpos > 64) && !nflag)
-        {
-            if (tpos > a)
-            {
-                putchar('\n');
-                lpos = 0;
-            }
-            else
-            {
-                /*
-                tpos = 1;
-                lpos = 0;
-                text[0] = '\n';
-                return;
-                */
-            }
-        }
-        else
-        {
-            putchar(' ');
-            lpos++;
+            putchar('\n');
+            putchar('\t');
+            lpos = 8;
+            goto loop;
         }
         while (text[a] == ' ' || text[a] == '\t' || text[a] == '\n')
         {
             a++;
         }
+        goto space;
+    }
+    for (b = a; b < tpos; b++)
+    {
+        if (text[b] != ' ' && text[b] != '\t' && text[b] != '\n')
+        {
+            break;
+        }
+    }
+    if (text[b] == '.' || text[b] == ',' || text[b] == '!' || text[b] == '?')
+    {
+        a = b;
         goto loop;
     }
+space:
+    for (x = a + 1; x < tpos; x++)
+    {
+        if (!wspace(text[x]))
+        {
+            if (text[x] == '#')
+            {
+                a = x + 1;
+                goto loop;
+            }
+            break;
+        }
+    }
+    if ((lpos > 64) && !nflag)
+    {
+        if (tpos > a)
+        {
+            putchar('\n');
+            lpos = 0;
+        }
+        else
+        {
+            /*
+            tpos = 1;
+            lpos = 0;
+            text[0] = '\n';
+            return;
+            */
+        }
+    }
+    else
+    {
+        putchar(' ');
+        lpos++;
+    }
+    while (text[a] == ' ' || text[a] == '\t' || text[a] == '\n')
+    {
+        a++;
+    }
+    goto loop;
 }
