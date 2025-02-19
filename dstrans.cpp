@@ -85,7 +85,7 @@ void dstrans()
      * as everything is held together by the arcs.
      */
 
-    strcpy(lastnode, "0");
+    strcpy(lastnode, "nullptr");
 
     for (a = 0; a < HASHSIZE; a++)
     {
@@ -96,17 +96,17 @@ void dstrans()
                 /* Write this node out. This is ugly... */
                 if (wk->kn_arc)
                 {
-                    fprintf(specp, "extern struct kcarc _kka%d;\n", wk->kn_arc->ka_arcnumber);
+                    fprintf(specp, "extern kcarc _kka%d;\n", wk->kn_arc->ka_arcnumber);
                 }
                 if (wk->kn_next)
                 {
-                    fprintf(specp, "extern struct kknode _kkn%d;\n", wk->kn_next->kn_nodenumber);
+                    fprintf(specp, "extern kknode _kkn%d;\n", wk->kn_next->kn_nodenumber);
                 }
                 if (wk->kn_fnum)
                 {
                     fprintf(specp, "extern int _kkFunc%d();\n", wk->kn_fnum);
                 }
-                fprintf(specp, "struct kknode _kkn%d = { ", wk->kn_nodenumber);
+                fprintf(specp, "kknode _kkn%d = { ", wk->kn_nodenumber);
                 fprintf(specp, "%d, ", wk->kn_type);
                 if (wk->kn_nodename)
                 {
@@ -114,7 +114,7 @@ void dstrans()
                 }
                 else
                 {
-                    fprintf(specp, "0, ");
+                    fprintf(specp, "nullptr, ");
                 }
                 if (wk->kn_arc)
                 {
@@ -122,7 +122,7 @@ void dstrans()
                 }
                 else
                 {
-                    fprintf(specp, "0, ");
+                    fprintf(specp, "nullptr, ");
                 }
                 if (wk->kn_next)
                 {
@@ -130,7 +130,7 @@ void dstrans()
                 }
                 else
                 {
-                    fprintf(specp, "0, ");
+                    fprintf(specp, "nullptr, ");
                 }
                 if (wk->kn_fnum)
                 {
@@ -138,7 +138,7 @@ void dstrans()
                 }
                 else
                 {
-                    fprintf(specp, "0, ");
+                    fprintf(specp, "nullptr, ");
                 }
                 fprintf(specp, "%s };\n", lastnode);
                 sprintf(lastnode, "&_kkn%d", wk->kn_nodenumber);
@@ -148,13 +148,13 @@ void dstrans()
                     {
                         if (tarc->ka_to)
                         {
-                            fprintf(specp, "extern struct kknode _kkn%d;\n", tarc->ka_to->kn_nodenumber);
+                            fprintf(specp, "extern kknode _kkn%d;\n", tarc->ka_to->kn_nodenumber);
                         }
                         if (tarc->ka_narc)
                         {
-                            fprintf(specp, "extern struct kcarc _kka%d;\n", tarc->ka_narc->ka_arcnumber);
+                            fprintf(specp, "extern kcarc _kka%d;\n", tarc->ka_narc->ka_arcnumber);
                         }
-                        fprintf(specp, "struct kcarc _kka%d = { ", tarc->ka_arcnumber);
+                        fprintf(specp, "kcarc _kka%d = { ", tarc->ka_arcnumber);
                         fprintf(specp, "\"%s\", ", tarc->ka_toname);
                         if (tarc->ka_type == KTNTERM)
                         {
@@ -162,7 +162,7 @@ void dstrans()
                         }
                         else
                         {
-                            fprintf(specp, "0, ");
+                            fprintf(specp, "nullptr, ");
                         }
                         if (tarc->ka_narc)
                         {
@@ -170,14 +170,14 @@ void dstrans()
                         }
                         else
                         { /* Oops { */
-                            fprintf(specp, "0 };\n");
+                            fprintf(specp, "nullptr };\n");
                         }
                     }
                 }
             }
         }
     }
-    fprintf(specp, "struct kknode *nodelist = %s;\n\n", lastnode);
+    fprintf(specp, "kknode *nodelist = %s;\n\n", lastnode);
 
     /* All the necessary information for the structure is now in place. */
 }
