@@ -23,9 +23,9 @@ unsigned char phash(char *string)
     unsigned char rv = 0;
     while (*string)
     {
-        rv += *(string++);
+        rv += *string++;
     }
-    return (rv);
+    return rv;
 }
 
 /* This function reads a C function from the input file. It is kept in
@@ -57,11 +57,11 @@ int transcribe(int num)
         putc(c, textp);
         if (!brct)
         {
-            return (0);
+            return 0;
         }
     }
     /* Reached EOF. */
-    return (1);
+    return 1;
 }
 
 /* "Gensym" for user supplied C code names. */
@@ -71,7 +71,7 @@ int newnum()
     static int n = 0;
 
     n++;
-    return (n);
+    return n;
 }
 
 /* "Gensym" for arcnumbers and nodenumbers. */
@@ -81,5 +81,5 @@ int newnum2()
     static int n = 0;
 
     n++;
-    return (n);
+    return n;
 }

@@ -45,7 +45,7 @@ int maketext(char *s)
     if (stnode == nullptr)
     {
         /* Error condition. */
-        return (-1);
+        return -1;
     }
 
     /* Now to generate the text. The generator works like this: first
@@ -70,7 +70,7 @@ nextarc:
         kksp--;
         if (kksp < &kkstack[0])
         { /* Done? */
-            return (0);
+            return 0;
         }
         /* There are more rules to go. */
         kksp->ke_arc = kksp->ke_arc->kc_narc;
@@ -102,7 +102,7 @@ nextarc:
          */
         while (kknn)
         {
-            if ((kknn->kk_func == nullptr) || (*kknn->kk_func)())
+            if (kknn->kk_func == nullptr || (*kknn->kk_func)())
             {
                 break;
             }

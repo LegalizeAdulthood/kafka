@@ -41,7 +41,7 @@ void kkoutput(char *string)
     {
         while (*string)
         {
-            text[tpos++] = *(string++);
+            text[tpos++] = *string++;
         }
         text[tpos++] = ' ';
         return;
@@ -65,7 +65,7 @@ loop:
     if (text[a] != ' ' && text[a] != '\t' && text[a] != '!' && text[a] != '\n' && text[a] != ',' && text[a] != '.' &&
         text[a] != '?')
     {
-        if ((text[a] == 'a') && ((a == 0) || wspace(text[a - 1])) && a < tpos && wspace(text[a + 1]))
+        if (text[a] == 'a' && (a == 0 || wspace(text[a - 1])) && a < tpos && wspace(text[a + 1]))
         {
             for (x = a + 1; x < tpos; x++)
             {
@@ -74,7 +74,7 @@ loop:
                     break;
                 }
             }
-            if ((x != tpos) && vowel(text[x]))
+            if (x != tpos && vowel(text[x]))
             {
                 putchar('a');
                 putchar('n');
@@ -168,7 +168,7 @@ space:
             break;
         }
     }
-    if ((lpos > 64) && !nflag)
+    if (lpos > 64 && !nflag)
     {
         if (tpos > a)
         {

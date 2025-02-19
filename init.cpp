@@ -41,5 +41,5 @@ int init()
     fprintf(textp, "/* The user routine file. */\n\n");
     fprintf(specp, "/* The specification file. */\n\n");
     fprintf(specp, "#include \"kafgraf.h\"\n\n");
-    return (0);
+    return 0;
 }
