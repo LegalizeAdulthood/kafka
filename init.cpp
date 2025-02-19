@@ -30,7 +30,9 @@ int init()
         exit(1);
     }
     if (!sourcefile)
+    {
         infile = stdin;
+    }
     else if ((infile = fopen(sourcefile, "r")) == nullptr)
     {
         perror(sourcefile);

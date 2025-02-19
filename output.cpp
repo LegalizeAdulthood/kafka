@@ -33,7 +33,9 @@ void kkoutput(char *string)
     if (*string != '@')
     {
         while (*string)
+        {
             text[tpos++] = *(string++);
+        }
         text[tpos++] = ' ';
         return;
     }
@@ -41,7 +43,9 @@ void kkoutput(char *string)
     {
         a = 0;
         if (text[0] >= 'a' && text[0] <= 'z')
+        {
             text[0] = text[0] - 'a' + 'A';
+        }
         if (lpos > 64)
         {
             putchar('\n');
@@ -59,8 +63,12 @@ loop:
             if ((text[a] == 'a') && ((a == 0) || wspace(text[a - 1])) && a < tpos && wspace(text[a + 1]))
             {
                 for (x = a + 1; x < tpos; x++)
+                {
                     if (!wspace(text[x]))
+                    {
                         break;
+                    }
+                }
                 if ((x != tpos) && vowel(text[x]))
                 {
                     putchar('a');
@@ -125,13 +133,17 @@ loop:
                 goto loop;
             }
             while (text[a] == ' ' || text[a] == '\t' || text[a] == '\n')
+            {
                 a++;
+            }
             goto space;
         }
         for (b = a; b < tpos; b++)
         {
             if (text[b] != ' ' && text[b] != '\t' && text[b] != '\n')
+            {
                 break;
+            }
         }
         if (text[b] == '.' || text[b] == ',' || text[b] == '!' || text[b] == '?')
         {
@@ -140,6 +152,7 @@ loop:
         }
 space:
         for (x = a + 1; x < tpos; x++)
+        {
             if (!wspace(text[x]))
             {
                 if (text[x] == '#')
@@ -149,6 +162,7 @@ space:
                 }
                 break;
             }
+        }
         if ((lpos > 64) && !nflag)
         {
             if (tpos > a)
@@ -172,7 +186,9 @@ space:
             lpos++;
         }
         while (text[a] == ' ' || text[a] == '\t' || text[a] == '\n')
+        {
             a++;
+        }
         goto loop;
     }
 }

@@ -22,7 +22,9 @@ unsigned char phash(char *string)
 {
     unsigned char rv = 0;
     while (*string)
+    {
         rv += *(string++);
+    }
     return (rv);
 }
 
@@ -45,12 +47,18 @@ int transcribe(int num)
     while (c = lex_input())
     { /* This is the lex input function. */
         if (c == '{')
+        {
             brct++;
+        }
         if (c == '}')
+        {
             brct--;
+        }
         putc(c, textp);
         if (!brct)
+        {
             return (0);
+        }
     }
     /* Reached EOF. */
     return (1);

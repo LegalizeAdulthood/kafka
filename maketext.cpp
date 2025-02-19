@@ -36,8 +36,12 @@ int maketext(char *s)
     /* dumpnlist(); Diagnostic. */
 
     for (stnode = nodelist; stnode != nullptr; stnode = stnode->kk_link)
+    {
         if (!strcmp(stnode->kk_nodename, s))
+        {
             break;
+        }
+    }
     if (stnode == nullptr)
     {
         /* Error condition. */
@@ -101,7 +105,9 @@ nextarc:
         while (kknn)
         {
             if ((kknn->kk_func == nullptr) || (*kknn->kk_func)())
+            {
                 break;
+            }
             kknn = kknn->kk_next;
         }
         if (kknn == nullptr)

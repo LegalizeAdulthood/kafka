@@ -48,18 +48,22 @@ void dstrans()
                 for (tarc = wk->kn_arc; tarc != nullptr; tarc = tarc->ka_narc)
                 {
                     if (tarc->ka_type != KTNTERM)
+                    {
                         tarc->ka_to = nullptr;
+                    }
                     else
                     {
                         it = tarc->ka_toname;
                         b = phash(it);
                         lf = nullptr;
                         for (lf = hashtab[b]; lf != nullptr; lf = lf->kn_nnt)
+                        {
                             if (!strcmp(it, lf->kn_nodename))
                             {
                                 tarc->ka_to = lf;
                                 break;
                             }
+                        }
                         if (lf == nullptr)
                         {
                             fprintf(stderr, "Error: no such node: %s\n", it);
@@ -91,29 +95,51 @@ void dstrans()
             {
                 /* Write this node out. This is ugly... */
                 if (wk->kn_arc)
+                {
                     fprintf(specp, "extern struct kcarc _kka%d;\n", wk->kn_arc->ka_arcnumber);
+                }
                 if (wk->kn_next)
+                {
                     fprintf(specp, "extern struct kknode _kkn%d;\n", wk->kn_next->kn_nodenumber);
+                }
                 if (wk->kn_fnum)
+                {
                     fprintf(specp, "extern int _kkFunc%d();\n", wk->kn_fnum);
+                }
                 fprintf(specp, "struct kknode _kkn%d = { ", wk->kn_nodenumber);
                 fprintf(specp, "%d, ", wk->kn_type);
                 if (wk->kn_nodename)
+                {
                     fprintf(specp, "\"%s\", ", wk->kn_nodename);
+                }
                 else
+                {
                     fprintf(specp, "0, ");
+                }
                 if (wk->kn_arc)
+                {
                     fprintf(specp, "&_kka%d, ", wk->kn_arc->ka_arcnumber);
+                }
                 else
+                {
                     fprintf(specp, "0, ");
+                }
                 if (wk->kn_next)
+                {
                     fprintf(specp, "&_kkn%d, ", wk->kn_next->kn_nodenumber);
+                }
                 else
+                {
                     fprintf(specp, "0, ");
+                }
                 if (wk->kn_fnum)
+                {
                     fprintf(specp, "_kkFunc%d, ", wk->kn_fnum);
+                }
                 else
+                {
                     fprintf(specp, "0, ");
+                }
                 fprintf(specp, "%s };\n", lastnode);
                 sprintf(lastnode, "&_kkn%d", wk->kn_nodenumber);
                 if (wk->kn_arc)
@@ -121,19 +147,31 @@ void dstrans()
                     for (tarc = wk->kn_arc; tarc != nullptr; tarc = tarc->ka_narc)
                     {
                         if (tarc->ka_to)
+                        {
                             fprintf(specp, "extern struct kknode _kkn%d;\n", tarc->ka_to->kn_nodenumber);
+                        }
                         if (tarc->ka_narc)
+                        {
                             fprintf(specp, "extern struct kcarc _kka%d;\n", tarc->ka_narc->ka_arcnumber);
+                        }
                         fprintf(specp, "struct kcarc _kka%d = { ", tarc->ka_arcnumber);
                         fprintf(specp, "\"%s\", ", tarc->ka_toname);
                         if (tarc->ka_type == KTNTERM)
+                        {
                             fprintf(specp, "&_kkn%d, ", tarc->ka_to->kn_nodenumber);
+                        }
                         else
+                        {
                             fprintf(specp, "0, ");
+                        }
                         if (tarc->ka_narc)
+                        {
                             fprintf(specp, "&_kka%d };\n", tarc->ka_narc->ka_arcnumber);
-                        else /* Oops { */
+                        }
+                        else
+                        { /* Oops { */
                             fprintf(specp, "0 };\n");
+                        }
                     }
                 }
             }
@@ -156,8 +194,11 @@ void dumpdata()
     {
         printf("Hashtab entry %d:\n", hpos);
         if (hashtab[hpos] == nullptr)
+        {
             printf("\t(empty)\n");
+        }
         else
+        {
             for (nont = hashtab[hpos]; nont != nullptr; nont = nont->kn_nnt)
             {
                 printf("\tNonterminal: %s\n", nont->kn_nodename);
@@ -165,9 +206,12 @@ void dumpdata()
                 {
                     printf("Rule: ");
                     for (arc = rule->kn_arc; arc != nullptr; arc = arc->ka_narc)
+                    {
                         printf("%s ", arc->ka_toname);
+                    }
                     putchar('\n');
                 }
             }
+        }
     }
 }

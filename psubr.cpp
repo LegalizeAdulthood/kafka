@@ -37,7 +37,9 @@ void newrule(char *name)
             if (!strcmp(n->kn_nodename, name))
             {
                 while (n->kn_next)
+                {
                     n = n->kn_next;
+                }
                 n->kn_next = (knode *) malloc(sizeof(knode));
                 n = n->kn_next;
                 goto gotit;
@@ -160,7 +162,9 @@ void copyccode()
         if (c == '%')
         {
             /* { boo hiss */ if ((c = lex_input()) == '}')
+            {
                 return;
+            }
             putc('\n', textp);
             putc('%', textp);
             putc(c, textp);
