@@ -13,6 +13,7 @@
 #include "kafgraf.h"
 #include "stuff.h"
 
+#include <cassert>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -26,7 +27,7 @@ int i, c;
 
 void newrule(char *name)
 {
-    knode *prev;
+    knode *prev{};
     unsigned char hashind;
 
     hashind = phash(name);
@@ -46,6 +47,7 @@ void newrule(char *name)
             }
             prev = n;
         }
+        assert(prev != nullptr);
         if (n == nullptr)
         {
             n = prev->kn_nnt = (knode *) malloc(sizeof(knode));
