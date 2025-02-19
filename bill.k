@@ -67,11 +67,11 @@
 #include <ctype.h>
 #include <stdlib.h>
 
-#define CH(n, o)	return (((rnum() % o) < n) ? 1 : 0)
+#define CH(n, o)        return (((rnum() % o) < n) ? 1 : 0)
 
 rnum()
 {
-	return (rand());
+        return (rand());
 }
 
 char *column1[] = {
@@ -240,42 +240,42 @@ char *lastchoice = NULL;
 
 getword(type)
 {
-	char **wds;
-	int i = 0, j = 0, k;
-	int alliterate = lastchoice ? (rand() % 4) : 0;
+        char **wds;
+        int i = 0, j = 0, k;
+        int alliterate = lastchoice ? (rand() % 4) : 0;
 
-	switch (type) {
-		case 1: wds = column1; break;
-		case 2: wds = column2; break;
-		case 3: wds = column3; break;
-		default: fprintf(stderr, "Bad thing %d\n", type);
-	}
+        switch (type) {
+                case 1: wds = column1; break;
+                case 2: wds = column2; break;
+                case 3: wds = column3; break;
+                default: fprintf(stderr, "Bad thing %d\n", type);
+        }
 
-	/* See how many words there are that we can use. */
-	for (k = 0; wds[k]; k++) {
-		if (alliterate && (*wds[k] == *lastchoice))
-			j++;
-	}
-	i = k;
-	if (j == 0) {
+        /* See how many words there are that we can use. */
+        for (k = 0; wds[k]; k++) {
+                if (alliterate && (*wds[k] == *lastchoice))
+                        j++;
+        }
+        i = k;
+        if (j == 0) {
 hoho:
-		i = rnum() % i;
-		lastchoice = wds[i];
-		return ((int) wds[i]);
-	} else {
-		j = rnum() % j;
-		for (k = 0; ; k++)
-			if (*wds[k] == (isupper(*lastchoice) ?
-					tolower(*lastchoice) : *lastchoice)) {
-				if (wds[k] == lastchoice)
-					goto hoho;
-				if (j == 0) {
-					lastchoice = wds[k];
-					return ((int) wds[k]);
-				} else
-					j--;
-			}
-	}
+                i = rnum() % i;
+                lastchoice = wds[i];
+                return ((int) wds[i]);
+        } else {
+                j = rnum() % j;
+                for (k = 0; ; k++)
+                        if (*wds[k] == (isupper(*lastchoice) ?
+                                        tolower(*lastchoice) : *lastchoice)) {
+                                if (wds[k] == lastchoice)
+                                        goto hoho;
+                                if (j == 0) {
+                                        lastchoice = wds[k];
+                                        return ((int) wds[k]);
+                                } else
+                                        j--;
+                        }
+        }
 }
 
 /* Word types. */
@@ -284,16 +284,16 @@ hoho:
 
 %%
 
-<start>		= <invective> ;
+<start>         = <invective> ;
 
-<invective>	= Thou <der-term> ;
+<invective>     = Thou <der-term> ;
 
-<der-term>	= <word3> <ep> { CH(1,3); } ;
-<der-term>	= <word2> <word3> <ep> { CH(1,3); } ;
-<der-term>	= <word1> <word2> <word3> <ep> { CH(1,3); } ;
+<der-term>      = <word3> <ep> { CH(1,3); } ;
+<der-term>      = <word2> <word3> <ep> { CH(1,3); } ;
+<der-term>      = <word1> <word2> <word3> <ep> { CH(1,3); } ;
 
-<word1>		= { return (getword(1)); } ;
-<word2>		= { return (getword(2)); } ;
-<word3>		= { return (getword(3)); } ;
+<word1>         = { return (getword(1)); } ;
+<word2>         = { return (getword(2)); } ;
+<word3>         = { return (getword(3)); } ;
 
-<ep>		= ! { lastchoice = NULL; return (1); } ;
+<ep>            = ! { lastchoice = NULL; return (1); } ;

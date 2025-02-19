@@ -2,34 +2,34 @@
 
 /*
  * buttplug -- a program to generate statements about buttplugs.
- *	Compile with etc.c, output.c, and maketext.c
+ *      Compile with etc.c, output.c, and maketext.c
  */
 
 #include <stdio.h>
 #include <ctype.h>
 #include <stdlib.h>
 
-#define CH(n, o)	return (((rnum() % o) < n) ? 1 : 0)
+#define CH(n, o)        return (((rnum() % o) < n) ? 1 : 0)
 
 rnum()
 {
-	return (rand());
+        return (rand());
 }
 
 char *ones, *subject, *verb_adj;
 
-#define YOUR	subject = "your", ones = "your", verb_adj = ""
-#define MY	subject = "I", ones = "my", verb_adj = ""
-#define HIS	subject = "he", ones = "his", verb_adj = "#s"
-#define HER	subject = "she", ones = "her", verb_adj = "#s"
-#define THEIR	subject = "they", ones = "their", verb_adj = ""
+#define YOUR    subject = "your", ones = "your", verb_adj = ""
+#define MY      subject = "I", ones = "my", verb_adj = ""
+#define HIS     subject = "he", ones = "his", verb_adj = "#s"
+#define HER     subject = "she", ones = "her", verb_adj = "#s"
+#define THEIR   subject = "they", ones = "their", verb_adj = ""
 
 /* Instead of defining all these words as rules, keep arrays of them. We
  * can also make the insults more interesting by using alliteration on
  * the words...
  */
 
-char *animals[] = { 	/* Animals. */
+char *animals[] = {     /* Animals. */
   "aardvark", "amphibian", "animal", "ant", "apteryx", "bird", "buzzard",
   "cat", "cockroach", "cow", "dodo", "dog", "duck", "emu", "fish", "flea",
   "frog", "gazelle", "gerbil", "goat", "goose", "grep", "haddock",
@@ -41,7 +41,7 @@ char *animals[] = { 	/* Animals. */
   NULL
 };
 
-char *derogatory[] = {	/* Derogatory terms. */
+char *derogatory[] = {  /* Derogatory terms. */
   "airhead", "axe murderer", "beer", "bug-breath", "bum", "cookie", "creep",
   "cretin", "crud", "deviate", "dink", "dipstick", "dirt", "dork", "dude",
   "dumbbell", "fairy", "fleabag", "fruit", "garbage", "geek", "gimp", "glob",
@@ -55,20 +55,20 @@ char *derogatory[] = {	/* Derogatory terms. */
   NULL
 };
 
-char *body_parts[] = {	/* Body parts. */
+char *body_parts[] = {  /* Body parts. */
   "behind", "brain", "crotch", "ear", "eye", "face", "liver", "nose",
   "pancreas", "private parts", "rectum", "stomach",
   NULL
 };
 
-char *objects[] = {	/* Objects. */
+char *objects[] = {     /* Objects. */
   "VAX", "baseball bat", "big thing", "boulder", "brick", "car",
   "heavy object", "knife", "manhole cover", "needle", "object", "rock",
   "sword", "terminal", "tree", "truck", "two by four", "colostomy bag",
   NULL
 };
 
-char *adjectives[] = {	/* Adjectives. */
+char *adjectives[] = {  /* Adjectives. */
   "Lovecraftian", "abnormal", "absurd", "awful", "bad", "bootlicking",
   "brainless", "cowardly", "crude", "dastardly", "dirty", "diseased",
   "disgusting", "disobedient", "dopey", "dumb", "elitist", "evil", "fat",
@@ -83,14 +83,14 @@ char *adjectives[] = {	/* Adjectives. */
   NULL
 };
 
-char *adverbs[] = {	/* Adverbs. */
+char *adverbs[] = {     /* Adverbs. */
   "disgustingly", "incredibly", "mega", "microscopically", "paradoxically",
   "phenomenally", "pseudo", "rather", "ridiculously", "semi", "slightly",
   "stupidly", "surprisingly", "terribly", "typically", "unbeliveably",
   NULL
 };
 
-char *nasties[] = {	/* Nasty things. */
+char *nasties[] = {     /* Nasty things. */
   "abuse", "annihilate", "avoid", "behead", "chop up", "damage", "destroy",
   "discriminate against", "disembowel", "dismember", "dissect", "eat",
   "flush", "forget about", "frighten", "hit", "ignore", "insult", "kick",
@@ -99,26 +99,26 @@ char *nasties[] = {	/* Nasty things. */
   NULL
 };
 
-char *diseases[] = {	/* Diseases. */
+char *diseases[] = {    /* Diseases. */
   "bad breath", "gout", "leprosy", "malaria", "plague", "halitosis",
   NULL
 };
 
-char *lubes[] = {			/* butt plug lubricants */
+char *lubes[] = {                       /* butt plug lubricants */
   "motor oil", "vaseline", "mayonaisse", "mustard", "WD-40", "honey",
   "KY jelly", "AstroGlide", "spit", "sperm", "peanut butter", "snot",
   "blood plasma", "feces",
   NULL
 };
 
-char *plugs[] = {			/* butt plugs */
+char *plugs[] = {                       /* butt plugs */
   "dildo", "buttplug", "vibrator", "banana", "zuchini", "squash",
   "rolling pin", "coke bottle", "gerbil", "hamster", "fist", "fecostalagmite",
   "fist", "eggplant",
   NULL
   };
 
-char *orifice[] = {			/* available orifices */
+char *orifice[] = {                     /* available orifices */
   "anus", "asshole", "sphincter", "vagina", "urethra", "throat",
   "eye socket", "ear", "nostril", "skin pore", "sucking chest wound",
   "colostomy hole", "anal cavity", "trachiotomy hole", "rectum",
@@ -126,17 +126,17 @@ char *orifice[] = {			/* available orifices */
   NULL
   };
 
-char *insertions[] = {			/* insertion verbs */
+char *insertions[] = {                  /* insertion verbs */
   "insert", "ram", "jam", "shove", "push", "squick",
   NULL
   };
 
-char *inserted[] = {			/* past-tense insertion verbs */
+char *inserted[] = {                    /* past-tense insertion verbs */
   "inserted", "rammed", "jammed", "shoved", "pushed", "squicked",
   NULL
   };
 
-char *men[] = {				/* men subjects */
+char *men[] = {                         /* men subjects */
   "George Bush", "Bill Clinton", "Ross Perot", "Paul Tsongas", "Jerry Brown",
   "Ronald Reagan", "John Sununu", "Pat Robertson", "Jimmy Carter",
   "Jerry Ford", "Richard Nixon", "Ted Koppel", "Dick Van Dyke",
@@ -147,19 +147,19 @@ char *men[] = {				/* men subjects */
   NULL
   };
 
-char *women[] = {			/* women subjects */
+char *women[] = {                       /* women subjects */
   "Barbara Bush", "Hillary Clinton", "Margot Perot", "Nancy Reagan",
   "Phylis Schlafly", "Mary Tyler Moore", 
   NULL
   };
 
-char *groups[] = {			/* aggregate subjects */
+char *groups[] = {                      /* aggregate subjects */
   "Democrats", "Republicans", "Socialiasts", "hate-mongers", "racists",
   "sexists", "Communists", "Berkleyites", "Taliban",
   NULL
   };
 
-char *stuck[] = {			/* wedged states */
+char *stuck[] = {                       /* wedged states */
   "stuck", "wedged", "rammed",
   NULL
   };
@@ -168,49 +168,49 @@ char *lastchoice = NULL;
 
 /* Word types. */
 
-#define ANIMAL		1
-#define DER_TERM	2
-#define BODYPART	3
-#define OBJECT		4
-#define ADJ		5
-#define ADVERB		6
-#define NASTY_THING	7
-#define DISEASE		8
-#define LUBES		9
-#define ORIFICE		10
-#define PLUGS		11
-#define INSERT		12
-#define MEN		13
-#define WOMEN		14
-#define GROUPS		15
-#define STUCK		16
-#define INSERTED	17
+#define ANIMAL          1
+#define DER_TERM        2
+#define BODYPART        3
+#define OBJECT          4
+#define ADJ             5
+#define ADVERB          6
+#define NASTY_THING     7
+#define DISEASE         8
+#define LUBES           9
+#define ORIFICE         10
+#define PLUGS           11
+#define INSERT          12
+#define MEN             13
+#define WOMEN           14
+#define GROUPS          15
+#define STUCK           16
+#define INSERTED        17
 
 getword(type)
 {
-  char **wds;	
+  char **wds;   
   int i = 0, j = 0, k;
   int alliterate = lastchoice ? (rand() % 4) : 0;
   
   switch (type)
     {
-    case ANIMAL:	wds = animals; break;
-    case DER_TERM:	wds = derogatory; break;
-    case BODYPART:	wds = body_parts; break;
-    case OBJECT:	wds = objects; break;
-    case ADJ:		wds = adjectives; break;
-    case ADVERB:	wds = adverbs; break;
-    case NASTY_THING:	wds = nasties; break;
-    case DISEASE:	wds = diseases; break;
-    case LUBES:		wds = lubes; break;
-    case PLUGS:		wds = plugs; break;
-    case ORIFICE:	wds = orifice; break;
-    case INSERT:	wds = insertions; break;
-    case MEN:		wds = men; break;
-    case WOMEN:		wds = women; break;
-    case GROUPS:	wds = groups; break;
-    case STUCK:		wds = stuck; break;
-    case INSERTED:	wds = inserted; break;
+    case ANIMAL:        wds = animals; break;
+    case DER_TERM:      wds = derogatory; break;
+    case BODYPART:      wds = body_parts; break;
+    case OBJECT:        wds = objects; break;
+    case ADJ:           wds = adjectives; break;
+    case ADVERB:        wds = adverbs; break;
+    case NASTY_THING:   wds = nasties; break;
+    case DISEASE:       wds = diseases; break;
+    case LUBES:         wds = lubes; break;
+    case PLUGS:         wds = plugs; break;
+    case ORIFICE:       wds = orifice; break;
+    case INSERT:        wds = insertions; break;
+    case MEN:           wds = men; break;
+    case WOMEN:         wds = women; break;
+    case GROUPS:        wds = groups; break;
+    case STUCK:         wds = stuck; break;
+    case INSERTED:      wds = inserted; break;
 
     default:
       fprintf(stderr, "Bad thing %d\n", type);
@@ -233,19 +233,19 @@ getword(type)
     {
       j = rnum() % j;
       for (k = 0; ; k++)
-	if (*wds[k] == (isupper(*lastchoice) ?
-			tolower(*lastchoice) : *lastchoice))
-	  {
-	    if (wds[k] == lastchoice)
-	      goto hoho;
-	    if (j == 0)
-	      {
-		lastchoice = wds[k];
-		return ((int) wds[k]);
-	      }
-	    else
-	      j--;
-	  }
+        if (*wds[k] == (isupper(*lastchoice) ?
+                        tolower(*lastchoice) : *lastchoice))
+          {
+            if (wds[k] == lastchoice)
+              goto hoho;
+            if (j == 0)
+              {
+                lastchoice = wds[k];
+                return ((int) wds[k]);
+              }
+            else
+              j--;
+          }
     }
 }
 
@@ -253,7 +253,7 @@ getword(type)
 
 %%
 
-<start>		= <buttplug> ;
+<start>         = <buttplug> ;
 
 <buttplug> = <exclam> <ep> { CH(1,15); };
 <buttplug> = <sentence> <pp> { CH(1,20); };
@@ -267,15 +267,15 @@ getword(type)
 
 <sentence> = <subject> "could plug a" <animalp> "with a" <plugp> { CH(1,15); };
 <sentence> = <subject> wonder <verb-adj> "how a" <plugp> in <ones> <orifice>
-	"would feel" { CH(1,20); };
+        "would feel" { CH(1,20); };
 <sentence> = <subject> "often wonder" <verb-adj> "what a" <plugp>
-	"would feel like in" <ones> <orifice> { CH(1,20); };
+        "would feel like in" <ones> <orifice> { CH(1,20); };
 <sentence> = <subject> like <verb-adj> "the feeling of a" <plugp> in <ones>
-	<orifice> { CH(1,20); };
+        <orifice> { CH(1,20); };
 <sentence> = <single-subject> "has a" <plugp> <stuck> in <ones> <orifice>
-	and <subj-ref> "can't get it out" { CH(1,20); };
+        and <subj-ref> "can't get it out" { CH(1,20); };
 <sentence> = <plural-subject> "have a" <plugp> up <ones> <orifice> and
-	<subj-ref> "can't get it out" { CH(1,20); };
+        <subj-ref> "can't get it out" { CH(1,20); };
 <sentence> = <sentence>;
 
 <subject> = <single-subject> { CH(1,2); };
@@ -294,7 +294,7 @@ getword(type)
 <verb-adj> = { return ((int) verb_adj); };
 
 <question> = "would you like a" <plugp> <past-insert-action> "in your"
-	<orifice> { CH(1,20); };
+        <orifice> { CH(1,20); };
 <question> = "who will" <lube-plug> and <plug-orifice> { CH(1,20); };
 <question> = <question>;
 
@@ -332,7 +332,7 @@ getword(type)
 
 <plug-orifice> = <insert-action> "it in your" <orifice> { CH(1,20); };
 <plug-orifice> = <insert-action> "it in someone else's" <orifice>
-	{ CH(1,20); };
+        { CH(1,20); };
 <plug-orifice> = <plug-orifice>;
 
 <insert-plug> = <insert-action> the <plugp> "into it";
@@ -355,54 +355,54 @@ getword(type)
 <insert-action> = <adverb> <insert> { CH(1,20); };
 <insert-action> = <insert-action>;
 
-<animalp>	= <adjp> <animal> { CH(1, 3); };
-<animalp>	= <animal> ;
+<animalp>       = <adjp> <animal> { CH(1, 3); };
+<animalp>       = <animal> ;
 
-<animal>	= { return (getword(ANIMAL)); };
+<animal>        = { return (getword(ANIMAL)); };
 
-<adjp>		= <adverb> <adj>	{ CH(1, 10); };
-<adjp>		= <adj> <adj> { CH(1, 10); };
-<adjp>		= <adj>	;
+<adjp>          = <adverb> <adj>        { CH(1, 10); };
+<adjp>          = <adj> <adj> { CH(1, 10); };
+<adjp>          = <adj> ;
 
-<adj>		= <animal> "#-infested" { CH(1, 40); };
-<adj>		= <animal> "#ish" { CH(1, 40); };
-<adj>		= <noun> "#-loving" { CH(1, 40); };
-<adj>		= <noun> "#-eating" { CH(1, 40); };
-<adj>		= <noun> "#like" { CH(1, 40); };
-<adj>		= <disease> "#-infested" { CH(1, 40); };
-<adj>		= <animal> <bodypart> "#ed" { CH(1, 40); };
-<adj>		= <lube> "#-covered" { CH(1,40); };
-<adj>		= <adj-x> ;
+<adj>           = <animal> "#-infested" { CH(1, 40); };
+<adj>           = <animal> "#ish" { CH(1, 40); };
+<adj>           = <noun> "#-loving" { CH(1, 40); };
+<adj>           = <noun> "#-eating" { CH(1, 40); };
+<adj>           = <noun> "#like" { CH(1, 40); };
+<adj>           = <disease> "#-infested" { CH(1, 40); };
+<adj>           = <animal> <bodypart> "#ed" { CH(1, 40); };
+<adj>           = <lube> "#-covered" { CH(1,40); };
+<adj>           = <adj-x> ;
 
-<adj-x>		= { return (getword(ADJ)); };
+<adj-x>         = { return (getword(ADJ)); };
 
-<adverb>	= <adj> "#ly" { CH(1, 50); };
-<adverb>	= <adverb-x> ;
+<adverb>        = <adj> "#ly" { CH(1, 50); };
+<adverb>        = <adverb-x> ;
 
-<adverb-x>	= { return (getword(ADVERB)); };
+<adverb-x>      = { return (getword(ADVERB)); };
 
-<noun>		= <animal>	{ CH(2, 3); };
-<noun>		= <object> ;
+<noun>          = <animal>      { CH(2, 3); };
+<noun>          = <object> ;
 
-<disease>	= { return (getword(DISEASE)); };
+<disease>       = { return (getword(DISEASE)); };
 
-<bodypart>	= <adjp> <bodypart> { CH(1, 10); };
-<bodypart>	= <bodypart-x> ;
+<bodypart>      = <adjp> <bodypart> { CH(1, 10); };
+<bodypart>      = <bodypart-x> ;
 
-<bodypart-x>	= { return (getword(BODYPART)); };
+<bodypart-x>    = { return (getword(BODYPART)); };
 
-<object>	= <animalp> { CH(1, 5); };
-<object>	= "pile of" <thing> "#s" { CH(1, 15); };
-<object>	= "bunch of" <thing> "#s" { CH(1, 15); };
-<object>	= <plugs>;
-<object>	= <object-x> ;
+<object>        = <animalp> { CH(1, 5); };
+<object>        = "pile of" <thing> "#s" { CH(1, 15); };
+<object>        = "bunch of" <thing> "#s" { CH(1, 15); };
+<object>        = <plugs>;
+<object>        = <object-x> ;
 
-<object-x>	= { return (getword(OBJECT)); };
+<object-x>      = { return (getword(OBJECT)); };
 
-<thing>		= <noun> ;
+<thing>         = <noun> ;
 
-<pp>		= . { lastchoice = NULL; return (1); };
-<ep>		= ! { lastchoice = NULL; return (1); };
-<qp>		= ? { lastchoice = NULL; return (1); };
+<pp>            = . { lastchoice = NULL; return (1); };
+<ep>            = ! { lastchoice = NULL; return (1); };
+<qp>            = ? { lastchoice = NULL; return (1); };
 
-<ones>		= { return ((int) ones); } ;
+<ones>          = { return ((int) ones); } ;

@@ -1,8 +1,8 @@
 /* RCS Info: $Revision: $ on $Date: $
  *           $Source: $
  * Copyright (c) 1985 Wayne A. Christopher 
- *	Permission is granted to do anything with this code except sell it
- *	or remove this message.
+ *      Permission is granted to do anything with this code except sell it
+ *      or remove this message.
  *
  * Assorted things.
  */
@@ -20,10 +20,10 @@ extern FILE *specp, *textp;
 
 unsigned char phash(char *string)
 {
-	unsigned char rv = 0;
-	while (*string) 
-		rv += *(string++);
-	return (rv);
+        unsigned char rv = 0;
+        while (*string) 
+                rv += *(string++);
+        return (rv);
 }
 
 
@@ -36,40 +36,40 @@ unsigned char phash(char *string)
 int transcribe(int num)
 {
 
-	/* Note that we must add the first bracket... */
+        /* Note that we must add the first bracket... */
 
-	extern FILE *textp;
-	char c;
-	int brct;
+        extern FILE *textp;
+        char c;
+        int brct;
 
-	fprintf(textp, "\nint _kkFunc%d()\n{\n", num);
-	brct = 1;
-	while (c = lex_input()) {	/* This is the lex input function. */
-		if (c == '{') brct++;
-		if (c == '}') brct--;
-		putc(c, textp);
-		if (!brct) return (0);
-	}
-	/* Reached EOF. */
-	return (1);
+        fprintf(textp, "\nint _kkFunc%d()\n{\n", num);
+        brct = 1;
+        while (c = lex_input()) {       /* This is the lex input function. */
+                if (c == '{') brct++;
+                if (c == '}') brct--;
+                putc(c, textp);
+                if (!brct) return (0);
+        }
+        /* Reached EOF. */
+        return (1);
 }
 
 /* "Gensym" for user supplied C code names. */
 
 int newnum()
 {
-	static int n = 0;
+        static int n = 0;
 
-	n++;
-	return (n);
+        n++;
+        return (n);
 }
 
 /* "Gensym" for arcnumbers and nodenumbers. */
 
 int newnum2()
 {
-	static int n = 0;
+        static int n = 0;
 
-	n++;
-	return (n);
+        n++;
+        return (n);
 }
