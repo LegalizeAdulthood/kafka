@@ -16,7 +16,10 @@
 #include "maketext.h"
 #include "output.h"
 
-#define DEFAULT 3
+enum
+{
+    DEFAULT = 3
+};
 
 int nflag = 0;
 

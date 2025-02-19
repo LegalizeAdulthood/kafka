@@ -6,8 +6,11 @@
  */
 #pragma once
 
-#define STACKSIZE 1024
-#define HASHSIZE 256
+enum
+{
+    STACKSIZE = 1024,
+    HASHSIZE = 256
+};
 
 /* Stack elements for the generator machine. */
 

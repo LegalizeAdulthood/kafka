@@ -24,7 +24,10 @@
  */
 #pragma once
 
-#define SSIZE 100 /* Max size of terminals and nonterms.  */
+enum
+{
+    SSIZE = 100 /* Max size of terminals and nonterms.  */
+};
 
 struct karc;
 struct kcarc;
@@ -66,10 +69,12 @@ struct kcarc
     kcarc *kc_narc;  /* Link. */
 };
 
-#define KTTERM 1  /* kn_arc and kn_next will be NULL. */
-#define KTNTERM 2 /* Non-terminal. */
-#define KTCOMP                                   \
-    3 /* Computed terminal. kn_arc->ka_func will \
-       * be used to decide what the value of the \
-       * terminal will be.                       \
-       */
+enum
+{
+    KTTERM = 1,  /* kn_arc and kn_next will be NULL. */
+    KTNTERM = 2, /* Non-terminal. */
+    KTCOMP = 3   /* Computed terminal. kn_arc->ka_func will
+                  * be used to decide what the value of the
+                  * terminal will be.
+                  */
+};
