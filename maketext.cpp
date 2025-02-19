@@ -35,10 +35,10 @@ int maketext(char *s)
 
     /* dumpnlist(); Diagnostic. */
 
-    for (stnode = nodelist; stnode != NULL; stnode = stnode->kk_link)
+    for (stnode = nodelist; stnode != nullptr; stnode = stnode->kk_link)
         if (!strcmp(stnode->kk_nodename, s))
             break;
-    if (stnode == NULL)
+    if (stnode == nullptr)
     {
         /* Error condition. */
         return (-1);
@@ -59,7 +59,7 @@ int maketext(char *s)
     kksp->ke_node = stnode;
     kksp->ke_arc = stnode->kk_arc;
 nextarc:
-    if (kksp->ke_arc == NULL)
+    if (kksp->ke_arc == nullptr)
     { /* We have reached the end of the
        * current rule.
        */
@@ -100,11 +100,11 @@ nextarc:
          */
         while (kknn)
         {
-            if ((kknn->kk_func == NULL) || (*kknn->kk_func)())
+            if ((kknn->kk_func == nullptr) || (*kknn->kk_func)())
                 break;
             kknn = kknn->kk_next;
         }
-        if (kknn == NULL)
+        if (kknn == nullptr)
         {
             fprintf(stderr, "Error: no rules accepted for %s\n", kksp->ke_node->kk_nodename);
             exit(1);

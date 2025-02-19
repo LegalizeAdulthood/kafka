@@ -9,9 +9,9 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-FILE *textp = NULL;
-FILE *specp = NULL;
-FILE *infile = NULL;
+FILE *textp = nullptr;
+FILE *specp = nullptr;
+FILE *infile = nullptr;
 extern char *sourcefile;
 int lineno{};
 
@@ -19,19 +19,19 @@ int init()
 {
     /* These should be only defaults here... */
 
-    if ((textp = fopen("kaf.text.cpp", "w")) == NULL)
+    if ((textp = fopen("kaf.text.cpp", "w")) == nullptr)
     {
         perror("kaf.text.cpp");
         exit(1);
     }
-    if ((specp = fopen("kaf.spec.cpp", "w")) == NULL)
+    if ((specp = fopen("kaf.spec.cpp", "w")) == nullptr)
     {
         perror("kaf.spec.cpp");
         exit(1);
     }
     if (!sourcefile)
         infile = stdin;
-    else if ((infile = fopen(sourcefile, "r")) == NULL)
+    else if ((infile = fopen(sourcefile, "r")) == nullptr)
     {
         perror(sourcefile);
         exit(1);

@@ -32,7 +32,7 @@ void newrule(char *name)
     hashind = phash(name);
     if (hashtab[hashind])
     {
-        for (n = hashtab[hashind]; n != NULL; n = n->kn_nnt)
+        for (n = hashtab[hashind]; n != nullptr; n = n->kn_nnt)
         {
             if (!strcmp(n->kn_nodename, name))
             {
@@ -44,7 +44,7 @@ void newrule(char *name)
             }
             prev = n;
         }
-        if (n == NULL)
+        if (n == nullptr)
         {
             n = prev->kn_nnt = (knode *) malloc(sizeof(knode));
         }
@@ -56,13 +56,13 @@ void newrule(char *name)
     }
 gotit:
     strcpy(n->kn_nodename, name);
-    n->kn_nnt = n->kn_next = NULL;
+    n->kn_nnt = n->kn_next = nullptr;
     n->kn_type = KTNTERM;
     n->kn_nodenumber = newnum2();
-    avarc = n->kn_arc = 0; /* Set n->kn_arc to the arc when you
-                            * find one.
-                            */
-                           /* The new node is now in place. Now to collect the arcs... */
+    avarc = n->kn_arc = nullptr; /* Set n->kn_arc to the arc when you
+                                  * find one.
+                                  */
+                                 /* The new node is now in place. Now to collect the arcs... */
 }
 
 /* Enter a computed terminal. */
@@ -72,8 +72,8 @@ void docompterm()
     int fnum;
 
     n->kn_type = KTCOMP;
-    n->kn_next = n->kn_nnt = NULL;
-    n->kn_arc = NULL;
+    n->kn_next = n->kn_nnt = nullptr;
+    n->kn_arc = nullptr;
     fnum = newnum();
     n->kn_fnum = fnum;
     /* Now we have to read in the actual function

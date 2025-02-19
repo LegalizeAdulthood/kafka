@@ -25,7 +25,7 @@
 int yyparse(void);
 
 int vflag = 0;
-char *sourcefile = NULL;
+char *sourcefile = nullptr;
 
 int main(int ac, char **av)
 {

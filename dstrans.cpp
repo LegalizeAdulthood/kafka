@@ -41,26 +41,26 @@ void dstrans()
 
     for (a = 0; a < HASHSIZE; a++)
     {
-        for (nt = hashtab[a]; nt != NULL; nt = nt->kn_nnt)
+        for (nt = hashtab[a]; nt != nullptr; nt = nt->kn_nnt)
         {
-            for (wk = nt; wk != NULL; wk = wk->kn_next)
+            for (wk = nt; wk != nullptr; wk = wk->kn_next)
             {
-                for (tarc = wk->kn_arc; tarc != NULL; tarc = tarc->ka_narc)
+                for (tarc = wk->kn_arc; tarc != nullptr; tarc = tarc->ka_narc)
                 {
                     if (tarc->ka_type != KTNTERM)
-                        tarc->ka_to = NULL;
+                        tarc->ka_to = nullptr;
                     else
                     {
                         it = tarc->ka_toname;
                         b = phash(it);
-                        lf = NULL;
-                        for (lf = hashtab[b]; lf != NULL; lf = lf->kn_nnt)
+                        lf = nullptr;
+                        for (lf = hashtab[b]; lf != nullptr; lf = lf->kn_nnt)
                             if (!strcmp(it, lf->kn_nodename))
                             {
                                 tarc->ka_to = lf;
                                 break;
                             }
-                        if (lf == NULL)
+                        if (lf == nullptr)
                         {
                             fprintf(stderr, "Error: no such node: %s\n", it);
                             errp = 1;
@@ -85,9 +85,9 @@ void dstrans()
 
     for (a = 0; a < HASHSIZE; a++)
     {
-        for (nt = hashtab[a]; nt != NULL; nt = nt->kn_nnt)
+        for (nt = hashtab[a]; nt != nullptr; nt = nt->kn_nnt)
         {
-            for (wk = nt; wk != NULL; wk = wk->kn_next)
+            for (wk = nt; wk != nullptr; wk = wk->kn_next)
             {
                 /* Write this node out. This is ugly... */
                 if (wk->kn_arc)
@@ -118,7 +118,7 @@ void dstrans()
                 sprintf(lastnode, "&_kkn%d", wk->kn_nodenumber);
                 if (wk->kn_arc)
                 {
-                    for (tarc = wk->kn_arc; tarc != NULL; tarc = tarc->ka_narc)
+                    for (tarc = wk->kn_arc; tarc != nullptr; tarc = tarc->ka_narc)
                     {
                         if (tarc->ka_to)
                             fprintf(specp, "extern struct kknode _kkn%d;\n", tarc->ka_to->kn_nodenumber);
@@ -155,16 +155,16 @@ void dumpdata()
     for (hpos = 0; hpos < HASHSIZE; hpos++)
     {
         printf("Hashtab entry %d:\n", hpos);
-        if (hashtab[hpos] == NULL)
+        if (hashtab[hpos] == nullptr)
             printf("\t(empty)\n");
         else
-            for (nont = hashtab[hpos]; nont != NULL; nont = nont->kn_nnt)
+            for (nont = hashtab[hpos]; nont != nullptr; nont = nont->kn_nnt)
             {
                 printf("\tNonterminal: %s\n", nont->kn_nodename);
-                for (rule = nont; rule != NULL; rule = rule->kn_next)
+                for (rule = nont; rule != nullptr; rule = rule->kn_next)
                 {
                     printf("Rule: ");
-                    for (arc = rule->kn_arc; arc != NULL; arc = arc->ka_narc)
+                    for (arc = rule->kn_arc; arc != nullptr; arc = arc->ka_narc)
                         printf("%s ", arc->ka_toname);
                     putchar('\n');
                 }
