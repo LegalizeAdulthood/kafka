@@ -13,8 +13,7 @@
 
 #include "defs.h"
 #include "kafgraf.h"
-
-extern void kkoutput(char *string);
+#include "output.h"
 
 kkelt kkstack[STACKSIZE]; /* The stack. */
 kkelt *kksp;              /* The stack pointer. */

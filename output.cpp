@@ -27,7 +27,7 @@ inline bool wspace(char c)
 
 int lpos = 0;
 
-void kkoutput(char *string)
+void kkoutput(const char *string)
 {
     static char text[BUFSIZ];
     static int tpos = 0;

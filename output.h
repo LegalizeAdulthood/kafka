@@ -1,3 +1,5 @@
 #pragma once
 
-void kkoutput(char *string);
+extern int lpos;
+
+void kkoutput(const char *string);

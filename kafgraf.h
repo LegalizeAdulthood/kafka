@@ -46,7 +46,7 @@ struct knode
 struct kknode
 {
     int kk_type;       /* See below. */
-    char *kk_nodename; /* Terminal or non-term. */
+    const char *kk_nodename; /* Terminal or non-term. */
     kcarc *kk_arc;     /* Pointer to list of arcs. */
     kknode *kk_next;   /* Next rule for this non-term. */
     int (*kk_func)();  /* Pointer to associated function. */
@@ -64,7 +64,7 @@ struct karc
 
 struct kcarc
 {
-    char *kc_toname; /* Only terminal names. */
+    const char *kc_toname; /* Only terminal names. */
     kknode *kc_to;   /* Node pointed to. */
     kcarc *kc_narc;  /* Link. */
 };
