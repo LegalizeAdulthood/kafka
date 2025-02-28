@@ -1,4 +1,3 @@
-
 /* RCS Info: $Revision: $ on $Date: $
  *           $Source: $
  * Copyright (c) 1985 Wayne A. Christopher
