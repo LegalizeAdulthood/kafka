@@ -27,14 +27,11 @@ int main(int ac, char **av)
 {
     /* The main function for babble. */
 
-    int i, j;
-    extern int lpos;
-
     srand(getpid());
 
     if (ac > 1)
     {
-        j = atoi(av[1]);
+        int j = atoi(av[1]);
         if (j < 0)
         {
             j = -j;
@@ -42,7 +39,7 @@ int main(int ac, char **av)
         }
         if (j == 0)
         {
-            for (i = 0; i < 100; i++)
+            for (int i = 0; i < 100; i++)
             {
                 maketext("start");
                 kkoutput("@");
@@ -52,7 +49,7 @@ int main(int ac, char **av)
             }
             exit(0);
         }
-        for (i = 0; i < j; i++)
+        for (int i = 0; i < j; i++)
         {
             maketext("start");
             kkoutput("@");
@@ -60,7 +57,7 @@ int main(int ac, char **av)
         putchar('\n');
         exit(0);
     }
-    i = DEFAULT;
+    int i = DEFAULT;
     while (i--)
     {
         srand(rand());
