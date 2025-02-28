@@ -28,8 +28,8 @@ include(CTest)
 add_library(runtime
     kafgraf.h
     etc.cpp
-    maketext.cpp
-    output.cpp
+    maketext.h maketext.cpp
+    output.h output.cpp
 )
 set_target_properties(runtime PROPERTIES FOLDER "Libraries")
 target_link_libraries(runtime PUBLIC config)
