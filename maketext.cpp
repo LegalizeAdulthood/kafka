@@ -16,7 +16,6 @@
 
 kkelt kkstack[STACKSIZE]; /* The stack. */
 kkelt *kksp;              /* The stack pointer. */
-extern kknode *start;
 extern kknode *nodelist;
 
 /* This routine is the one that generates a string in the grammer,
