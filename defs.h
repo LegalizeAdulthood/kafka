@@ -14,8 +14,11 @@ enum
 
 /* Stack elements for the generator machine. */
 
+struct kknode;
+struct kcarc;
+
 struct kkelt
 {
-    struct kknode *ke_node;
-    struct kcarc *ke_arc;
+    kknode *ke_node;
+    kcarc *ke_arc;
 };
