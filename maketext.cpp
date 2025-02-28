@@ -6,6 +6,7 @@
  */
 #include "maketext.h"
 
+#include <cassert>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -110,6 +111,7 @@ nextarc:
             fprintf(stderr, "Error: no rules accepted for %s\n", kksp->ke_node->kk_nodename);
             exit(1);
         }
+        assert(kksp < &kkstack[STACKSIZE - 1]);
         kksp++;
         kksp->ke_node = kknn;
         kksp->ke_arc = kknn->kk_arc;
