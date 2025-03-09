@@ -18,9 +18,10 @@
 
 int rnum()
 {
-    return (rand());
+    return rand() + 1; // bias by one
 }
 
+// choose n of o
 int choose(int n, int o)
 {
     return (rnum() % o) < n ? 1 : 0;
@@ -39,7 +40,7 @@ const char *ones;
  * the words...
  */
 
-const char *words1[] = {      /* Animals. */
+const char *animals[] = {      /* Animals. */
         "aardvark",
         "amphibian",
         "animal",
@@ -100,10 +101,10 @@ const char *words1[] = {      /* Animals. */
         "wombat",
         "worm",
         "yak",
-        NULL
+        nullptr
 } ;
 
-const char *words2[] = {      /* Derogatory terms. */
+const char *derogatory_terms[] = {      /* Derogatory terms. */
         "airhead",
         "axe murderer",
         "beer", 
@@ -165,10 +166,10 @@ const char *words2[] = {      /* Derogatory terms. */
         "weight-lifter",
         "welfare mother",
         "wonderful, sensitive human being",
-        NULL
+        nullptr
 } ;
 
-const char *words3[] = {      /* Body parts. */
+const char *body_parts[] = {      /* Body parts. */
         "behind",
         "brain",
         "crotch",
@@ -181,10 +182,10 @@ const char *words3[] = {      /* Body parts. */
         "private parts",
         "rectum",
         "stomach",
-        NULL
+        nullptr
 } ;
 
-const char *words4[] = {      /* Objects. */
+const char *objects[] = {      /* Objects. */
         "VAX",
         "baseball bat",
         "big thing",
@@ -202,10 +203,10 @@ const char *words4[] = {      /* Objects. */
         "tree",
         "truck",
         "two by four",
-        NULL
+        nullptr
 } ;
 
-const char *words5[] = {      /* Adjectives. */
+const char *adjectives[] = {      /* Adjectives. */
         "Lovecraftian",
         "abnormal",
         "absurd",
@@ -278,10 +279,10 @@ const char *words5[] = {      /* Adjectives. */
         "uppity",
         "vile",
         "worthless",
-        NULL
+        nullptr
 } ;
 
-const char *words6[] = {      /* Adverbs. */
+const char *adverbs[] = {      /* Adverbs. */
         "disgustingly",
         "incredibly",
         "mega",
@@ -298,10 +299,10 @@ const char *words6[] = {      /* Adverbs. */
         "terribly",
         "typically",
         "unbeliveably",
-        NULL
+        nullptr
 } ;
 
-const char *words7[] = {      /* Nasty things. */
+const char *nasty_things[] = {      /* Nasty things. */
         "abuse",
         "annihilate",
         "avoid",
@@ -331,41 +332,41 @@ const char *words7[] = {      /* Nasty things. */
         "squish",
         "stab",
         "step on",
-        NULL
+        nullptr
 } ;
 
-const char *words8[] = {      /* Diseases. */
+const char *diseases[] = {      /* Diseases. */
         "bad breath",
         "gout",
         "leprosy",
         "malaria",
         "plague",
-        NULL
+        nullptr
 } ;
 
-const char *lastchoice = NULL;
+const char *lastchoice = nullptr;
 
 int getword(int type)
 {
         const char **wds;
         int i = 0, j = 0, k;
-        int alliterate = lastchoice ? (rand() % 4) : 0;
+        const bool alliterate = lastchoice != nullptr && (rand() % 4) != 0;
 
         switch (type) {
-                case 1: wds = words1; break;
-                case 2: wds = words2; break;
-                case 3: wds = words3; break;
-                case 4: wds = words4; break;
-                case 5: wds = words5; break;
-                case 6: wds = words6; break;
-                case 7: wds = words7; break;
-                case 8: wds = words8; break;
+                case 1: wds = animals; break;
+                case 2: wds = derogatory_terms; break;
+                case 3: wds = body_parts; break;
+                case 4: wds = objects; break;
+                case 5: wds = adjectives; break;
+                case 6: wds = adverbs; break;
+                case 7: wds = nasty_things; break;
+                case 8: wds = diseases; break;
                 default: fprintf(stderr, "Bad thing %d\n", type);
         }
 
         /* See how many words there are that we can use. */
         for (k = 0; wds[k]; k++) {
-                if (alliterate && (*wds[k] == *lastchoice))
+                if (alliterate && (wds[k][0] == lastchoice[0]))
                         j++;
         }
         i = k;
@@ -373,20 +374,22 @@ int getword(int type)
 hoho:
                 i = rnum() % i;
                 lastchoice = wds[i];
-                return i;
+                g_computed = wds[i];
+                return 1;
         } else {
                 j = rnum() % j;
-                for (k = 0; ; k++)
-                        if (*wds[k] == (isupper(*lastchoice) ?
-                                        tolower(*lastchoice) : *lastchoice)) {
+                for (k = 0; wds[k] != nullptr; k++)
+                        if (wds[k][0] == tolower(lastchoice[0])) {
                                 if (wds[k] == lastchoice)
                                         goto hoho;
                                 if (j == 0) {
                                         lastchoice = wds[k];
-                                        return k;
+                                        g_computed = wds[k];
+                                        return 1;
                                 } else
                                         j--;
                         }
+                goto hoho; // TODO: redo loop over j instead?
         }
 }
 
@@ -575,9 +578,9 @@ hoho:
 <exclam>        = well, <exclam> { CH(1, 10); } ;
 <exclam>        = <exclam> ;
 
-<pp>            = . { lastchoice = NULL; return (1); } ;
-<ep>            = ! { lastchoice = NULL; return (1); } ;
-<qp>            = ? { lastchoice = NULL; return (1); } ;
+<pp>            = . { lastchoice = nullptr; return (1); } ;
+<ep>            = ! { lastchoice = nullptr; return (1); } ;
+<qp>            = ? { lastchoice = nullptr; return (1); } ;
 
 <ones>          = { return 1; } ;
 
