@@ -11,18 +11,6 @@
 
 #include "runtime.h"
 
-int rnum()
-{
-    return rand();
-}
-
-int choose(int n, int o)
-{
-    return rnum() % o < n ? 1 : 0;
-}
-
-#define CH(n_, o_) return choose((n_), (o_))
-
 const char *ones, *subject, *verb_adj;
 
 #define YOUR    subject = "your", ones = "your", verb_adj = ""
@@ -171,8 +159,6 @@ const char *stuck[] = {                       /* wedged states */
   NULL
   };
 
-const char *lastchoice = NULL;
-
 /* Word types. */
 
 #define ANIMAL          1
@@ -196,8 +182,6 @@ const char *lastchoice = NULL;
 int getword(int type)
 {
   const char **wds;   
-  int i = 0, j = 0, k;
-  int alliterate = lastchoice ? (rand() % 4) : 0;
   
   switch (type)
     {
@@ -222,40 +206,8 @@ int getword(int type)
     default:
       fprintf(stderr, "Bad thing %d\n", type);
     }
-  
-  /* See how many words there are that we can use. */
-  for (k = 0; wds[k]; k++)
-    if (alliterate && (*wds[k] == *lastchoice))
-      j++;
 
-  i = k;
-  if (j == 0)
-    {
-    hoho:
-      i = rnum() % i;
-      lastchoice = wds[i];
-      g_computed = wds[i];
-      return 1;
-    }
-  else
-    {
-      j = rnum() % j;
-      for (k = 0; ; k++)
-        if (*wds[k] == (isupper(*lastchoice) ?
-                        tolower(*lastchoice) : *lastchoice))
-          {
-            if (wds[k] == lastchoice)
-              goto hoho;
-            if (j == 0)
-              {
-                lastchoice = wds[k];
-                g_computed = wds[k];
-                return 1;
-              }
-            else
-              j--;
-          }
-    }
+  return random_word(wds);
 }
 
 %}
@@ -410,8 +362,8 @@ int getword(int type)
 
 <thing>         = <noun> ;
 
-<pp>            = . { lastchoice = nullptr; return (1); };
-<ep>            = ! { lastchoice = nullptr; return (1); };
-<qp>            = ? { lastchoice = nullptr; return (1); };
+<pp>            = . { g_last_choice = nullptr; return (1); };
+<ep>            = ! { g_last_choice = nullptr; return (1); };
+<qp>            = ? { g_last_choice = nullptr; return (1); };
 
 <ones>          = { return 1; } ;

@@ -14,11 +14,11 @@
 #include "defs.h"
 #include "kafgraf.h"
 #include "output.h"
+#include "runtime.h"
 
 kkelt kkstack[STACKSIZE]; /* The stack. */
 kkelt *kksp;              /* The stack pointer. */
 extern kknode *nodelist;
-const char *g_computed{};
 
 /* This routine is the one that generates a string in the grammer,
  * beginning with the non-terminal s. Returns -1 if s is not the

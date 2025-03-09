@@ -5,7 +5,7 @@ add_library(runtime
     maketext.h maketext.cpp
     node_type.h
     output.h output.cpp
-    runtime.h
+    runtime.h runtime.cpp
 )
 target_include_directories(runtime PUBLIC .)
 target_link_libraries(runtime PUBLIC config)

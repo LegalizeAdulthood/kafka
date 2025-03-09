@@ -9,23 +9,7 @@
 
 #include <stdlib.h>
 
-int rnum()
-{
-    return rand();
-}
-
-int choose(int n, int o)
-{
-    return rnum() % o < n ? 1 : 0;
-}
-
-#define CH(n_, o_) return choose((n_), (o_))
-
-const char *ones;
-
-#define YOUR    ones = "your"
-#define MY      ones = "my"
-#define HIS     ones = "his"
+#include "runtime.h"
 
 %}
 

@@ -69,18 +69,6 @@
 
 #include "runtime.h"
 
-int rnum()
-{
-    return rand();
-}
-
-int choose(int n, int o)
-{
-    return rnum() % o < n ? 1 : 0;
-}
-
-#define CH(n_, o_) return choose((n_), (o_))
-
 const char *column1[] = {
     "artless",
     "bawdy",
@@ -243,13 +231,9 @@ const char *column3[] = {
     NULL
 } ;
 
-const char *lastchoice = NULL;
-
 int getword(int type)
 {
         const char **wds;
-        int i = 0, j = 0, k;
-        int alliterate = lastchoice ? (rand() % 4) : 0;
 
         switch (type) {
                 case 1: wds = column1; break;
@@ -258,33 +242,7 @@ int getword(int type)
                 default: fprintf(stderr, "Bad thing %d\n", type);
         }
 
-        /* See how many words there are that we can use. */
-        for (k = 0; wds[k]; k++) {
-                if (alliterate && (*wds[k] == *lastchoice))
-                        j++;
-        }
-        i = k;
-        if (j == 0) {
-hoho:
-                i = rnum() % i;
-                lastchoice = wds[i];
-                g_computed = wds[i];
-                return 1;
-        } else {
-                j = rnum() % j;
-                for (k = 0; ; k++)
-                        if (*wds[k] == (isupper(*lastchoice) ?
-                                        tolower(*lastchoice) : *lastchoice)) {
-                                if (wds[k] == lastchoice)
-                                        goto hoho;
-                                if (j == 0) {
-                                        lastchoice = wds[k];
-                                        g_computed = wds[k];
-                                        return 1;
-                                } else
-                                        j--;
-                        }
-        }
+        return random_word(wds);
 }
 
 /* Word types. */
@@ -305,4 +263,4 @@ hoho:
 <word2>         = { return (getword(2)); } ;
 <word3>         = { return (getword(3)); } ;
 
-<ep>            = ! { lastchoice = NULL; return (1); } ;
+<ep>            = ! { g_last_choice = NULL; return (1); } ;

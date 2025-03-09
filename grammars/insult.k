@@ -16,19 +16,6 @@
 
 #include "runtime.h"
 
-int rnum()
-{
-    return rand() + 1; // bias by one
-}
-
-// choose n of o
-int choose(int n, int o)
-{
-    return (rnum() % o) < n ? 1 : 0;
-}
-
-#define CH(n_, o_) return choose((n_), (o_))
-
 const char *ones;
 
 #define YOUR    ones = "your"
@@ -344,13 +331,9 @@ const char *diseases[] = {      /* Diseases. */
         nullptr
 } ;
 
-const char *lastchoice = nullptr;
-
 int getword(int type)
 {
         const char **wds;
-        int i = 0, j = 0, k;
-        const bool alliterate = lastchoice != nullptr && (rand() % 4) != 0;
 
         switch (type) {
                 case 1: wds = animals; break;
@@ -364,33 +347,7 @@ int getword(int type)
                 default: fprintf(stderr, "Bad thing %d\n", type);
         }
 
-        /* See how many words there are that we can use. */
-        for (k = 0; wds[k]; k++) {
-                if (alliterate && (wds[k][0] == lastchoice[0]))
-                        j++;
-        }
-        i = k;
-        if (j == 0) {
-hoho:
-                i = rnum() % i;
-                lastchoice = wds[i];
-                g_computed = wds[i];
-                return 1;
-        } else {
-                j = rnum() % j;
-                for (k = 0; wds[k] != nullptr; k++)
-                        if (wds[k][0] == tolower(lastchoice[0])) {
-                                if (wds[k] == lastchoice)
-                                        goto hoho;
-                                if (j == 0) {
-                                        lastchoice = wds[k];
-                                        g_computed = wds[k];
-                                        return 1;
-                                } else
-                                        j--;
-                        }
-                goto hoho; // TODO: redo loop over j instead?
-        }
+        return random_word(wds);
 }
 
 /* Word types. */
@@ -578,9 +535,9 @@ hoho:
 <exclam>        = well, <exclam> { CH(1, 10); } ;
 <exclam>        = <exclam> ;
 
-<pp>            = . { lastchoice = nullptr; return (1); } ;
-<ep>            = ! { lastchoice = nullptr; return (1); } ;
-<qp>            = ? { lastchoice = nullptr; return (1); } ;
+<pp>            = . { g_last_choice = nullptr; return (1); } ;
+<ep>            = ! { g_last_choice = nullptr; return (1); } ;
+<qp>            = ? { g_last_choice = nullptr; return (1); } ;
 
 <ones>          = { return 1; } ;
 

@@ -1,4 +1,3 @@
-
 # RCS Info: $Revision: $ on $Date: $
 #           $Source: $
 # Copyright (c) 1985 Wayne A. Christopher 
@@ -25,14 +24,7 @@
 
 #include <stdlib.h>
 
-inline int choose(int n, int o)
-{
-    return rand() % o < n ? 1 : 0;
-}
-
-#define CH(n_, o_) return choose(n_, o_)
-
-/* I think there used to be a reason for doing ^^^ this... */
+#include "runtime.h"
 
 %}
 
@@ -396,4 +388,3 @@ inline int choose(int n, int o)
 <rnd>           = <rnd>                         ;
 
 %%
-
