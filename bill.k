@@ -79,7 +79,7 @@ int choose(int n, int o)
 
 #define CH(n_, o_) return choose((n_), (o_))
 
-char *column1[] = {
+const char *column1[] = {
     "artless",
     "bawdy",
     "beslubbering",
@@ -133,7 +133,7 @@ char *column1[] = {
     NULL
 } ;
 
-char *column2[] = {
+const char *column2[] = {
     "base-court",
     "bat-fowling",
     "beef-witted",
@@ -187,7 +187,7 @@ char *column2[] = {
     NULL
 } ;
 
-char *column3[] = {
+const char *column3[] = {
     "apple-john",
     "baggage",
     "barnacle",
@@ -241,11 +241,11 @@ char *column3[] = {
     NULL
 } ;
 
-char *lastchoice = NULL;
+const char *lastchoice = NULL;
 
 int getword(int type)
 {
-        char **wds;
+        const char **wds;
         int i = 0, j = 0, k;
         int alliterate = lastchoice ? (rand() % 4) : 0;
 
