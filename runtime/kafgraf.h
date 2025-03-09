@@ -24,6 +24,8 @@
  */
 #pragma once
 
+#include "node_type.h"
+
 enum
 {
     SSIZE = 100 /* Max size of terminals and nonterms.  */
@@ -67,14 +69,4 @@ struct kcarc
     const char *kc_toname; /* Only terminal names. */
     kknode *kc_to;   /* Node pointed to. */
     kcarc *kc_narc;  /* Link. */
-};
-
-enum
-{
-    KTTERM = 1,  /* kn_arc and kn_next will be NULL. */
-    KTNTERM = 2, /* Non-terminal. */
-    KTCOMP = 3   /* Computed terminal. kn_arc->ka_func will
-                  * be used to decide what the value of the
-                  * terminal will be.
-                  */
 };
