@@ -39,16 +39,6 @@
       "configurePreset": "default"
     }
   ],
-  "testPresets": [
-    {
-      "name": "default",
-      "displayName": "Test with default settings",
-      "configurePreset": "default",
-      "output": {
-        "outputOnFailure": true
-      }
-    }
-  ],
   "workflowPresets": [
     {
       "name": "default",
@@ -60,10 +50,6 @@
         },
         {
           "type": "build",
-          "name": "default"
-        },
-        {
-          "type": "test",
           "name": "default"
         }
       ]
