@@ -266,7 +266,7 @@ int getword(int type)
 hoho:
                 i = rnum() % i;
                 lastchoice = wds[i];
-                return ((int) wds[i]);
+                return i;
         } else {
                 j = rnum() % j;
                 for (k = 0; ; k++)
@@ -276,7 +276,7 @@ hoho:
                                         goto hoho;
                                 if (j == 0) {
                                         lastchoice = wds[k];
-                                        return ((int) wds[k]);
+                                        return k;
                                 } else
                                         j--;
                         }
