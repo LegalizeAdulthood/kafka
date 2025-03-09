@@ -9,12 +9,17 @@
 #include <ctype.h>
 #include <stdlib.h>
 
-#define CH(n, o)        return (((rnum() % o) < n) ? 1 : 0)
-
-rnum()
+int rnum()
 {
-        return (rand());
+    return rand();
 }
+
+int choose(int n, int o)
+{
+    return (rnum() % o) < n ? 1 : 0;
+}
+
+#define CH(n_, o_) return choose((n_), (o_))
 
 char *ones, *subject, *verb_adj;
 
@@ -186,7 +191,7 @@ char *lastchoice = NULL;
 #define STUCK           16
 #define INSERTED        17
 
-getword(type)
+int getword(int type)
 {
   char **wds;   
   int i = 0, j = 0, k;
@@ -288,7 +293,7 @@ getword(type)
 <single-subject> = you { YOUR; CH(1,20); };
 <single-subject> = <single-subject>;
 
-<plural-subject> = <groups> { THEIR; };
+<plural-subject> = <groups> { THEIR; return 0; };
 
 <subj-ref> = { return ((int) subject); };
 <verb-adj> = { return ((int) verb_adj); };

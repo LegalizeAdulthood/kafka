@@ -14,12 +14,17 @@
 #include <ctype.h>
 #include <stdlib.h>
 
-#define CH(n, o)        return (((rnum() % o) < n) ? 1 : 0)
-
-rnum()
+int rnum()
 {
         return (rand());
 }
+
+int choose(int n, int o)
+{
+    return (rnum() % o) < n ? 1 : 0;
+}
+
+#define CH(n_, o_) return choose((n_), (o_))
 
 char *ones;
 
@@ -338,7 +343,7 @@ char *words8[] = {      /* Diseases. */
 
 char *lastchoice = NULL;
 
-getword(type)
+int getword(int type)
 {
         char **wds;
         int i = 0, j = 0, k;
