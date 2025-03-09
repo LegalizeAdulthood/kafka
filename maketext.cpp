@@ -26,8 +26,7 @@ extern kknode *nodelist;
 
 int maketext(char *s)
 {
-    kknode *stnode, *kknn;
-    int kkcv;
+    kknode *stnode;
 
     /* First find the start node. */
 
@@ -77,14 +76,14 @@ nextarc:
     /* There are yet arcs to be followed in the current rule. */
     if (kksp->ke_arc->kc_to)
     { /* The arc is to a non-term. Follow it. */
-        kknn = kksp->ke_arc->kc_to;
+        kknode *kknn = kksp->ke_arc->kc_to;
         if (kknn->kk_type == KTCOMP)
         {
             /* Compute the value of the terminal. Note that we
              * don't bother declaring these functions to be
              * char *.
              */
-            kkcv = (*kknn->kk_func)();
+            int kkcv = (*kknn->kk_func)();
             if (kkcv == NULL)
             { /* Doesn't like this rule. */
                 kksp->ke_arc = kksp->ke_arc->kc_narc;
