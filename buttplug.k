@@ -21,7 +21,7 @@ int choose(int n, int o)
 
 #define CH(n_, o_) return choose((n_), (o_))
 
-char *ones, *subject, *verb_adj;
+const char *ones, *subject, *verb_adj;
 
 #define YOUR    subject = "your", ones = "your", verb_adj = ""
 #define MY      subject = "I", ones = "my", verb_adj = ""
@@ -34,7 +34,7 @@ char *ones, *subject, *verb_adj;
  * the words...
  */
 
-char *animals[] = {     /* Animals. */
+const char *animals[] = {     /* Animals. */
   "aardvark", "amphibian", "animal", "ant", "apteryx", "bird", "buzzard",
   "cat", "cockroach", "cow", "dodo", "dog", "duck", "emu", "fish", "flea",
   "frog", "gazelle", "gerbil", "goat", "goose", "grep", "haddock",
@@ -46,7 +46,7 @@ char *animals[] = {     /* Animals. */
   NULL
 };
 
-char *derogatory[] = {  /* Derogatory terms. */
+const char *derogatory[] = {  /* Derogatory terms. */
   "airhead", "axe murderer", "beer", "bug-breath", "bum", "cookie", "creep",
   "cretin", "crud", "deviate", "dink", "dipstick", "dirt", "dork", "dude",
   "dumbbell", "fairy", "fleabag", "fruit", "garbage", "geek", "gimp", "glob",
@@ -60,20 +60,20 @@ char *derogatory[] = {  /* Derogatory terms. */
   NULL
 };
 
-char *body_parts[] = {  /* Body parts. */
+const char *body_parts[] = {  /* Body parts. */
   "behind", "brain", "crotch", "ear", "eye", "face", "liver", "nose",
   "pancreas", "private parts", "rectum", "stomach",
   NULL
 };
 
-char *objects[] = {     /* Objects. */
+const char *objects[] = {     /* Objects. */
   "VAX", "baseball bat", "big thing", "boulder", "brick", "car",
   "heavy object", "knife", "manhole cover", "needle", "object", "rock",
   "sword", "terminal", "tree", "truck", "two by four", "colostomy bag",
   NULL
 };
 
-char *adjectives[] = {  /* Adjectives. */
+const char *adjectives[] = {  /* Adjectives. */
   "Lovecraftian", "abnormal", "absurd", "awful", "bad", "bootlicking",
   "brainless", "cowardly", "crude", "dastardly", "dirty", "diseased",
   "disgusting", "disobedient", "dopey", "dumb", "elitist", "evil", "fat",
@@ -88,14 +88,14 @@ char *adjectives[] = {  /* Adjectives. */
   NULL
 };
 
-char *adverbs[] = {     /* Adverbs. */
+const char *adverbs[] = {     /* Adverbs. */
   "disgustingly", "incredibly", "mega", "microscopically", "paradoxically",
   "phenomenally", "pseudo", "rather", "ridiculously", "semi", "slightly",
   "stupidly", "surprisingly", "terribly", "typically", "unbeliveably",
   NULL
 };
 
-char *nasties[] = {     /* Nasty things. */
+const char *nasties[] = {     /* Nasty things. */
   "abuse", "annihilate", "avoid", "behead", "chop up", "damage", "destroy",
   "discriminate against", "disembowel", "dismember", "dissect", "eat",
   "flush", "forget about", "frighten", "hit", "ignore", "insult", "kick",
@@ -104,26 +104,26 @@ char *nasties[] = {     /* Nasty things. */
   NULL
 };
 
-char *diseases[] = {    /* Diseases. */
+const char *diseases[] = {    /* Diseases. */
   "bad breath", "gout", "leprosy", "malaria", "plague", "halitosis",
   NULL
 };
 
-char *lubes[] = {                       /* butt plug lubricants */
+const char *lubes[] = {                       /* butt plug lubricants */
   "motor oil", "vaseline", "mayonaisse", "mustard", "WD-40", "honey",
   "KY jelly", "AstroGlide", "spit", "sperm", "peanut butter", "snot",
   "blood plasma", "feces",
   NULL
 };
 
-char *plugs[] = {                       /* butt plugs */
+const char *plugs[] = {                       /* butt plugs */
   "dildo", "buttplug", "vibrator", "banana", "zuchini", "squash",
   "rolling pin", "coke bottle", "gerbil", "hamster", "fist", "fecostalagmite",
   "fist", "eggplant",
   NULL
   };
 
-char *orifice[] = {                     /* available orifices */
+const char *orifice[] = {                     /* available orifices */
   "anus", "asshole", "sphincter", "vagina", "urethra", "throat",
   "eye socket", "ear", "nostril", "skin pore", "sucking chest wound",
   "colostomy hole", "anal cavity", "trachiotomy hole", "rectum",
@@ -131,17 +131,17 @@ char *orifice[] = {                     /* available orifices */
   NULL
   };
 
-char *insertions[] = {                  /* insertion verbs */
+const char *insertions[] = {                  /* insertion verbs */
   "insert", "ram", "jam", "shove", "push", "squick",
   NULL
   };
 
-char *inserted[] = {                    /* past-tense insertion verbs */
+const char *inserted[] = {                    /* past-tense insertion verbs */
   "inserted", "rammed", "jammed", "shoved", "pushed", "squicked",
   NULL
   };
 
-char *men[] = {                         /* men subjects */
+const char *men[] = {                         /* men subjects */
   "George Bush", "Bill Clinton", "Ross Perot", "Paul Tsongas", "Jerry Brown",
   "Ronald Reagan", "John Sununu", "Pat Robertson", "Jimmy Carter",
   "Jerry Ford", "Richard Nixon", "Ted Koppel", "Dick Van Dyke",
@@ -152,24 +152,24 @@ char *men[] = {                         /* men subjects */
   NULL
   };
 
-char *women[] = {                       /* women subjects */
+const char *women[] = {                       /* women subjects */
   "Barbara Bush", "Hillary Clinton", "Margot Perot", "Nancy Reagan",
   "Phylis Schlafly", "Mary Tyler Moore", 
   NULL
   };
 
-char *groups[] = {                      /* aggregate subjects */
+const char *groups[] = {                      /* aggregate subjects */
   "Democrats", "Republicans", "Socialiasts", "hate-mongers", "racists",
   "sexists", "Communists", "Berkleyites", "Taliban",
   NULL
   };
 
-char *stuck[] = {                       /* wedged states */
+const char *stuck[] = {                       /* wedged states */
   "stuck", "wedged", "rammed",
   NULL
   };
 
-char *lastchoice = NULL;
+const char *lastchoice = NULL;
 
 /* Word types. */
 
@@ -193,7 +193,7 @@ char *lastchoice = NULL;
 
 int getword(int type)
 {
-  char **wds;   
+  const char **wds;   
   int i = 0, j = 0, k;
   int alliterate = lastchoice ? (rand() % 4) : 0;
   

@@ -11,7 +11,7 @@
 
 #define CH(n, o)        return ((((rand() - 1313513) % o) < n) ? 1 : 0)
 
-char *ones;
+const char *ones;
 
 #define YOUR    ones = "your"
 #define MY      ones = "my"

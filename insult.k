@@ -26,7 +26,7 @@ int choose(int n, int o)
 
 #define CH(n_, o_) return choose((n_), (o_))
 
-char *ones;
+const char *ones;
 
 #define YOUR    ones = "your"
 #define MY      ones = "my"
@@ -37,7 +37,7 @@ char *ones;
  * the words...
  */
 
-char *words1[] = {      /* Animals. */
+const char *words1[] = {      /* Animals. */
         "aardvark",
         "amphibian",
         "animal",
@@ -101,7 +101,7 @@ char *words1[] = {      /* Animals. */
         NULL
 } ;
 
-char *words2[] = {      /* Derogatory terms. */
+const char *words2[] = {      /* Derogatory terms. */
         "airhead",
         "axe murderer",
         "beer", 
@@ -166,7 +166,7 @@ char *words2[] = {      /* Derogatory terms. */
         NULL
 } ;
 
-char *words3[] = {      /* Body parts. */
+const char *words3[] = {      /* Body parts. */
         "behind",
         "brain",
         "crotch",
@@ -182,7 +182,7 @@ char *words3[] = {      /* Body parts. */
         NULL
 } ;
 
-char *words4[] = {      /* Objects. */
+const char *words4[] = {      /* Objects. */
         "VAX",
         "baseball bat",
         "big thing",
@@ -203,7 +203,7 @@ char *words4[] = {      /* Objects. */
         NULL
 } ;
 
-char *words5[] = {      /* Adjectives. */
+const char *words5[] = {      /* Adjectives. */
         "Lovecraftian",
         "abnormal",
         "absurd",
@@ -279,7 +279,7 @@ char *words5[] = {      /* Adjectives. */
         NULL
 } ;
 
-char *words6[] = {      /* Adverbs. */
+const char *words6[] = {      /* Adverbs. */
         "disgustingly",
         "incredibly",
         "mega",
@@ -299,7 +299,7 @@ char *words6[] = {      /* Adverbs. */
         NULL
 } ;
 
-char *words7[] = {      /* Nasty things. */
+const char *words7[] = {      /* Nasty things. */
         "abuse",
         "annihilate",
         "avoid",
@@ -332,7 +332,7 @@ char *words7[] = {      /* Nasty things. */
         NULL
 } ;
 
-char *words8[] = {      /* Diseases. */
+const char *words8[] = {      /* Diseases. */
         "bad breath",
         "gout",
         "leprosy",
@@ -341,11 +341,11 @@ char *words8[] = {      /* Diseases. */
         NULL
 } ;
 
-char *lastchoice = NULL;
+const char *lastchoice = NULL;
 
 int getword(int type)
 {
-        char **wds;
+        const char **wds;
         int i = 0, j = 0, k;
         int alliterate = lastchoice ? (rand() % 4) : 0;
 
@@ -371,7 +371,7 @@ int getword(int type)
 hoho:
                 i = rnum() % i;
                 lastchoice = wds[i];
-                return ((int) wds[i]);
+                return i;
         } else {
                 j = rnum() % j;
                 for (k = 0; ; k++)
@@ -381,7 +381,7 @@ hoho:
                                         goto hoho;
                                 if (j == 0) {
                                         lastchoice = wds[k];
-                                        return ((int) wds[k]);
+                                        return k;
                                 } else
                                         j--;
                         }
@@ -577,5 +577,5 @@ hoho:
 <ep>            = ! { lastchoice = NULL; return (1); } ;
 <qp>            = ? { lastchoice = NULL; return (1); } ;
 
-<ones>          = { return ((int) ones); } ;
+<ones>          = { return 1; } ;
 
