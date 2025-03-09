@@ -8,34 +8,37 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+#include <string>
 
 FILE *textp = nullptr;
 FILE *specp = nullptr;
 FILE *infile = nullptr;
-extern char *sourcefile;
+std::string g_source_file;
+std::string g_text_file{"kaf.text.cpp"};
+std::string g_spec_file{"kaf.spec.cpp"};
 int lineno{};
 
 int init()
 {
     /* These should be only defaults here... */
 
-    if ((textp = fopen("kaf.text.cpp", "w")) == nullptr)
+    if ((textp = fopen(g_text_file.c_str(), "w")) == nullptr)
     {
-        perror("kaf.text.cpp");
+        perror(g_text_file.c_str());
         exit(1);
     }
-    if ((specp = fopen("kaf.spec.cpp", "w")) == nullptr)
+    if ((specp = fopen(g_spec_file.c_str(), "w")) == nullptr)
     {
-        perror("kaf.spec.cpp");
+        perror(g_spec_file.c_str());
         exit(1);
     }
-    if (!sourcefile)
+    if (g_source_file.empty())
     {
         infile = stdin;
     }
-    else if ((infile = fopen(sourcefile, "r")) == nullptr)
+    else if ((infile = fopen(g_source_file.c_str(), "r")) == nullptr)
     {
-        perror(sourcefile);
+        perror(g_source_file.c_str());
         exit(1);
     }
     fprintf(textp, "/* The user routine file. */\n\n");

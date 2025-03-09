@@ -28,7 +28,6 @@ void usage()
 int yyparse(void);
 
 int vflag = 0;
-char *sourcefile = nullptr;
 
 int main(int ac, char **av)
 {
@@ -43,24 +42,34 @@ int main(int ac, char **av)
         }
         if (!strcmp(av[ch], "-t"))
         {
-            /* Do textfile option. (Unimplemented...) */
+            /* Do textfile option. */
             ch++;
+            if (ch == ac)
+            {
+                usage();
+            }
+            g_text_file = av[ch];
             continue;
         }
         if (!strcmp(av[ch], "-s"))
         {
-            /* Do specfile option. (Unimplemented...) */
+            /* Do specfile option. */
             ch++;
+            if (ch == ac)
+            {
+                usage();
+            }
+            g_spec_file = av[ch];
             continue;
         }
         /* Sourcefile. */
-        if (sourcefile)
+        if (!g_source_file.empty())
         {
             usage();
         }
-        sourcefile = av[ch];
+        g_source_file = av[ch];
     }
-    if (!sourcefile)
+    if (g_source_file.empty())
     {
         usage();
     }
