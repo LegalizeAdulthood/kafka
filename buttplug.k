@@ -232,7 +232,7 @@ int getword(int type)
     hoho:
       i = rnum() % i;
       lastchoice = wds[i];
-      return ((int) wds[i]);
+      return i;
     }
   else
     {
@@ -246,7 +246,7 @@ int getword(int type)
             if (j == 0)
               {
                 lastchoice = wds[k];
-                return ((int) wds[k]);
+                return k;
               }
             else
               j--;
@@ -295,8 +295,8 @@ int getword(int type)
 
 <plural-subject> = <groups> { THEIR; return 0; };
 
-<subj-ref> = { return ((int) subject); };
-<verb-adj> = { return ((int) verb_adj); };
+<subj-ref> = { return 0; };
+<verb-adj> = { return 0; };
 
 <question> = "would you like a" <plugp> <past-insert-action> "in your"
         <orifice> { CH(1,20); };
@@ -410,4 +410,4 @@ int getword(int type)
 <ep>            = ! { lastchoice = NULL; return (1); };
 <qp>            = ? { lastchoice = NULL; return (1); };
 
-<ones>          = { return ((int) ones); } ;
+<ones>          = { return 0; } ;
