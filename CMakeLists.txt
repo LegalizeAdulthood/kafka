@@ -16,7 +16,9 @@ endif()
 find_package(BISON REQUIRED)
 find_package(FLEX REQUIRED)
 
-set_property(GLOBAL PROPERTY USE_FOLDERS ON)
+list(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_LIST_DIR}/cmake")
+include(target_folder)
+
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
@@ -24,16 +26,6 @@ set(KAFKA_PROJECT_NAME "Kafka" CACHE "STRING" "Default project name for IDEs")
 project("${KAFKA_PROJECT_NAME}" CXX)
 
 include(CTest)
-
-add_library(runtime
-    kafgraf.h
-    etc.cpp
-    maketext.h maketext.cpp
-    output.h output.cpp
-)
-set_target_properties(runtime PROPERTIES FOLDER "Libraries")
-target_link_libraries(runtime PUBLIC config)
-target_include_directories(runtime PUBLIC .)
 
 bison_target(parser parse.y "${CMAKE_CURRENT_BINARY_DIR}/kafka_parser.cpp"
     DEFINES_FILE "${CMAKE_CURRENT_BINARY_DIR}/kafka_parser.h")
@@ -43,9 +35,7 @@ flex_target(lexer lexical.l "${CMAKE_CURRENT_BINARY_DIR}/kafka_lexer.cpp"
 add_flex_bison_dependency(lexer parser)
 
 add_executable(kafka 
-    defs.h
     graph.h
-    kafgraf.h
     dstrans.h dstrans.cpp
     init.h init.cpp
     main.cpp
@@ -58,7 +48,8 @@ add_executable(kafka
 )
 source_group("Parser Files" REGULAR_EXPRESSION "^.*\\.[ly]$")
 target_include_directories(kafka PUBLIC . "${CMAKE_CURRENT_BINARY_DIR}")
-set_target_properties(kafka PROPERTIES FOLDER "Tools")
+target_link_libraries(kafka PUBLIC runtime)
+target_folder(kafka "Tools")
 
 set_property(DIRECTORY PROPERTY VS_STARTUP_PROJECT kafka)
 
@@ -88,7 +79,9 @@ foreach(grammar babble bill buttplug flame insult)
 endforeach()
 
 add_subdirectory(config)
+add_subdirectory(runtime)
 
 if(BUILD_TESTING)
     add_subdirectory(tests)
 endif()
+
