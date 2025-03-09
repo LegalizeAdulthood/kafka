@@ -9,7 +9,7 @@
 #include <ctype.h>
 #include <stdlib.h>
 
-extern const char *g_computed;
+#include "runtime.h"
 
 int rnum()
 {

@@ -14,6 +14,8 @@
 #include <ctype.h>
 #include <stdlib.h>
 
+#include "runtime.h"
+
 int rnum()
 {
     return (rand());
