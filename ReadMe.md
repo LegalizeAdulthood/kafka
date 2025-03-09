@@ -1,3 +1,4 @@
+[![GitHub Release](https://img.shields.io/github/v/release/LegalizeAdulthood/kafka?label=Latest+Release)](https://github.com/LegalizeAdulthood/kafka/releases)
 [![CMake workflow](https://github.com/LegalizeAdulthood/kafka/actions/workflows/cmake.yml/badge.svg)](https://github.com/LegalizeAdulthood/kafka/actions/workflows/cmake.yml)
 [![C++17](https://img.shields.io/badge/C%2B%2B-17-blue.svg)](https://en.wikipedia.org/wiki/C%2B%2B17)
 
