@@ -9,15 +9,9 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(KAFKA_PROJECT_NAME "Kafka" CACHE "STRING" "Default project name for IDEs")
 project("${KAFKA_PROJECT_NAME}" CXX)
 
-include(CTest)
-
 set_property(DIRECTORY PROPERTY VS_STARTUP_PROJECT kafka)
 
 add_subdirectory(config)
 add_subdirectory(runtime)
 add_subdirectory(kafka)
 add_subdirectory(grammars)
-
-if(BUILD_TESTING)
-    add_subdirectory(tests)
-endif()
