@@ -35,12 +35,12 @@ struct kcarc;
 
 struct kknode
 {
-    int kk_type;       /* See below. */
+    NodeType kk_type;        /* See below. */
     const char *kk_nodename; /* Terminal or non-term. */
-    kcarc *kk_arc;     /* Pointer to list of arcs. */
-    kknode *kk_next;   /* Next rule for this non-term. */
-    int (*kk_func)();  /* Pointer to associated function. */
-    kknode *kk_link;   /* Overall node list. */
+    kcarc *kk_arc;           /* Pointer to list of arcs. */
+    kknode *kk_next;         /* Next rule for this non-term. */
+    int (*kk_func)();        /* Pointer to associated function. */
+    kknode *kk_link;         /* Overall node list. */
 };
 
 struct kcarc

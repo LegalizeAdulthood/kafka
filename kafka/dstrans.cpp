@@ -24,6 +24,20 @@ extern knode *hashtab[];
 extern FILE *specp; /* The file to output to. */
 int errp = 0;
 
+static const char *to_enum_name(NodeType value)
+{
+    switch (value)
+    {
+    case NodeType::TERMINAL:
+        return "NodeType::TERMINAL";
+    case NodeType::NON_TERMINAL:
+        return "NodeType::NON_TERMINAL";
+    case NodeType::COMPUTED:
+        return "NodeType::COMPUTED";
+    }
+    return "?";
+}
+
 void dstrans()
 {
     knode *nt, *wk, *lf;
@@ -47,7 +61,7 @@ void dstrans()
             {
                 for (tarc = wk->kn_arc; tarc != nullptr; tarc = tarc->ka_narc)
                 {
-                    if (tarc->ka_type != KTNTERM)
+                    if (tarc->ka_type != NodeType::NON_TERMINAL)
                     {
                         tarc->ka_to = nullptr;
                     }
@@ -107,7 +121,7 @@ void dstrans()
                     fprintf(specp, "extern int _kkFunc%d();\n", wk->kn_fnum);
                 }
                 fprintf(specp, "kknode _kkn%d = { ", wk->kn_nodenumber);
-                fprintf(specp, "%d, ", wk->kn_type);
+                fprintf(specp, "%s, ", to_enum_name(wk->kn_type));
                 if (wk->kn_nodename)
                 {
                     fprintf(specp, "\"%s\", ", wk->kn_nodename);
@@ -156,7 +170,7 @@ void dstrans()
                         }
                         fprintf(specp, "kcarc _kka%d = { ", tarc->ka_arcnumber);
                         fprintf(specp, "\"%s\", ", tarc->ka_toname);
-                        if (tarc->ka_type == KTNTERM)
+                        if (tarc->ka_type == NodeType::NON_TERMINAL)
                         {
                             fprintf(specp, "&_kkn%d, ", tarc->ka_to->kn_nodenumber);
                         }

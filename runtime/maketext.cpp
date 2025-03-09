@@ -78,7 +78,7 @@ nextarc:
     if (kksp->ke_arc->kc_to)
     { /* The arc is to a non-term. Follow it. */
         kknode *kknn = kksp->ke_arc->kc_to;
-        if (kknn->kk_type == KTCOMP)
+        if (kknn->kk_type == NodeType::COMPUTED)
         {
             /* Compute the value of the terminal. Note that we
              * don't bother declaring these functions to be

@@ -3,6 +3,7 @@ add_library(runtime
     kafgraf.h
     etc.cpp
     maketext.h maketext.cpp
+    node_type.h
     output.h output.cpp
 )
 target_include_directories(runtime PUBLIC .)

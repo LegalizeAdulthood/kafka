@@ -61,7 +61,7 @@ void newrule(char *name)
 gotit:
     strcpy(n->kn_nodename, name);
     n->kn_nnt = n->kn_next = nullptr;
-    n->kn_type = KTNTERM;
+    n->kn_type = NodeType::NON_TERMINAL;
     n->kn_nodenumber = newnum2();
     avarc = n->kn_arc = nullptr; /* Set n->kn_arc to the arc when you
                                   * find one.
@@ -75,7 +75,7 @@ void docompterm()
 {
     int fnum;
 
-    n->kn_type = KTCOMP;
+    n->kn_type = NodeType::COMPUTED;
     n->kn_next = n->kn_nnt = nullptr;
     n->kn_arc = nullptr;
     fnum = newnum();
@@ -115,7 +115,7 @@ void dononterm(char *name)
         n->kn_arc = avarc;
     }
     strcpy(avarc->ka_toname, name);
-    avarc->ka_type = KTNTERM;
+    avarc->ka_type = NodeType::NON_TERMINAL;
     avarc->ka_arcnumber = newnum2();
 }
 
@@ -138,7 +138,7 @@ void doterm(char *name)
         n->kn_arc = avarc;
     }
     strcpy(avarc->ka_toname, name);
-    avarc->ka_type = KTTERM;
+    avarc->ka_type = NodeType::TERMINAL;
     avarc->ka_arcnumber = newnum2();
 }
 

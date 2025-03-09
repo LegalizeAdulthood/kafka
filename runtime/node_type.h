@@ -1,11 +1,11 @@
 #pragma once
 
-enum
+enum class NodeType
 {
-    KTTERM = 1,  /* kn_arc and kn_next will be NULL. */
-    KTNTERM = 2, /* Non-terminal. */
-    KTCOMP = 3   /* Computed terminal. kn_arc->ka_func will
-                  * be used to decide what the value of the
-                  * terminal will be.
-                  */
+    TERMINAL = 1,     /* kn_arc and kn_next will be NULL. */
+    NON_TERMINAL = 2, /* Non-terminal. */
+    COMPUTED = 3      /* Computed terminal. kn_arc->ka_func will
+                       * be used to decide what the value of the
+                       * terminal will be.
+                       */
 };
