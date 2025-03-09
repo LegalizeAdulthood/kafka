@@ -21,7 +21,8 @@ flex_target(lexer lexical.l "${CMAKE_CURRENT_BINARY_DIR}/kafka_lexer.cpp"
     DEFINES_FILE "${CMAKE_CURRENT_BINARY_DIR}/kafka_lexer.h")
 add_flex_bison_dependency(lexer parser)
 
-add_executable(kafka 
+add_executable(kafka
+    ast.h
     dstrans.h dstrans.cpp
     init.h init.cpp
     main.cpp

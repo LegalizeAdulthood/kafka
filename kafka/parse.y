@@ -11,7 +11,7 @@
  */
 
 #include <stdio.h>
-#include "kafgraf.h"
+#include "ast.h"
 #include "kafka_lexer.h"
 
 char buf[BUFSIZ];

@@ -13,7 +13,7 @@
 #include "dstrans.h"
 
 #include "defs.h"
-#include "kafgraf.h"
+#include "ast.h"
 #include "stuff.h"
 
 #include <stdio.h>

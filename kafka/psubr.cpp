@@ -10,7 +10,7 @@
 
 #include "psubr.h"
 
-#include "kafgraf.h"
+#include "ast.h"
 #include "stuff.h"
 
 #include <cassert>
