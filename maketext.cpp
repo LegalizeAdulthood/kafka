@@ -18,6 +18,7 @@
 kkelt kkstack[STACKSIZE]; /* The stack. */
 kkelt *kksp;              /* The stack pointer. */
 extern kknode *nodelist;
+const char *g_computed{};
 
 /* This routine is the one that generates a string in the grammer,
  * beginning with the non-terminal s. Returns -1 if s is not the
@@ -84,13 +85,14 @@ nextarc:
              * char *.
              */
             int kkcv = (*kknn->kk_func)();
-            if (kkcv == NULL)
+            if (kkcv == 0 || g_computed == nullptr)
             { /* Doesn't like this rule. */
                 kksp->ke_arc = kksp->ke_arc->kc_narc;
                 goto nextarc;
             }
             /* Cool. */
-            kkoutput((char *) kkcv);
+            kkoutput((char *) g_computed);
+            g_computed = nullptr;
             kksp->ke_arc = kksp->ke_arc->kc_narc;
             goto nextarc;
         }

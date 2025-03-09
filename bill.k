@@ -67,6 +67,8 @@
 #include <ctype.h>
 #include <stdlib.h>
 
+extern const char *g_computed;
+
 int rnum()
 {
     return rand();
@@ -266,7 +268,8 @@ int getword(int type)
 hoho:
                 i = rnum() % i;
                 lastchoice = wds[i];
-                return i;
+                g_computed = wds[i];
+                return 1;
         } else {
                 j = rnum() % j;
                 for (k = 0; ; k++)
@@ -276,7 +279,8 @@ hoho:
                                         goto hoho;
                                 if (j == 0) {
                                         lastchoice = wds[k];
-                                        return k;
+                                        g_computed = wds[k];
+                                        return 1;
                                 } else
                                         j--;
                         }

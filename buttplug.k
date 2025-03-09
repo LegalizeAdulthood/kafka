@@ -9,6 +9,8 @@
 #include <ctype.h>
 #include <stdlib.h>
 
+extern const char *g_computed;
+
 int rnum()
 {
     return rand();
@@ -232,7 +234,8 @@ int getword(int type)
     hoho:
       i = rnum() % i;
       lastchoice = wds[i];
-      return i;
+      g_computed = wds[i];
+      return 1;
     }
   else
     {
@@ -246,7 +249,8 @@ int getword(int type)
             if (j == 0)
               {
                 lastchoice = wds[k];
-                return k;
+                g_computed = wds[k];
+                return 1;
               }
             else
               j--;
@@ -293,10 +297,10 @@ int getword(int type)
 <single-subject> = you { YOUR; CH(1,20); };
 <single-subject> = <single-subject>;
 
-<plural-subject> = <groups> { THEIR; return 0; };
+<plural-subject> = <groups> { THEIR; return 1; };
 
-<subj-ref> = { return 0; };
-<verb-adj> = { return 0; };
+<subj-ref> = { return 1; };
+<verb-adj> = { return 1; };
 
 <question> = "would you like a" <plugp> <past-insert-action> "in your"
         <orifice> { CH(1,20); };
@@ -406,8 +410,8 @@ int getword(int type)
 
 <thing>         = <noun> ;
 
-<pp>            = . { lastchoice = NULL; return (1); };
-<ep>            = ! { lastchoice = NULL; return (1); };
-<qp>            = ? { lastchoice = NULL; return (1); };
+<pp>            = . { lastchoice = nullptr; return (1); };
+<ep>            = ! { lastchoice = nullptr; return (1); };
+<qp>            = ? { lastchoice = nullptr; return (1); };
 
-<ones>          = { return 0; } ;
+<ones>          = { return 1; } ;
