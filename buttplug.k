@@ -16,7 +16,7 @@ int rnum()
 
 int choose(int n, int o)
 {
-    return (rnum() % o) < n ? 1 : 0;
+    return rnum() % o < n ? 1 : 0;
 }
 
 #define CH(n_, o_) return choose((n_), (o_))

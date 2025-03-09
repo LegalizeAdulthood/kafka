@@ -16,7 +16,7 @@
 
 int rnum()
 {
-        return (rand());
+    return (rand());
 }
 
 int choose(int n, int o)

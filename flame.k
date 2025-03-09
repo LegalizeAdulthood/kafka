@@ -9,7 +9,17 @@
 
 #include <stdlib.h>
 
-#define CH(n, o)        return ((((rand() - 1313513) % o) < n) ? 1 : 0)
+int rnum()
+{
+    return rand();
+}
+
+int choose(int n, int o)
+{
+    return rnum() % o < n ? 1 : 0;
+}
+
+#define CH(n_, o_) return choose((n_), (o_))
 
 const char *ones;
 

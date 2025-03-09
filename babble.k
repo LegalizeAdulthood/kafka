@@ -27,7 +27,7 @@
 
 inline int choose(int n, int o)
 {
-    return (rand() - 1313513) % o < n ? 1 : 0;
+    return rand() % o < n ? 1 : 0;
 }
 
 #define CH(n_, o_) return choose(n_, o_)
