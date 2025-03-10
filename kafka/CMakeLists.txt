@@ -37,3 +37,5 @@ source_group("Parser Files" REGULAR_EXPRESSION "^.*\\.[ly]$")
 target_include_directories(kafka PUBLIC . "${CMAKE_CURRENT_BINARY_DIR}")
 target_link_libraries(kafka PUBLIC runtime)
 target_folder(kafka "Tools")
+
+install(TARGETS kafka DESTINATION .)

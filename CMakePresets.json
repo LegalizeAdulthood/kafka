@@ -30,6 +30,14 @@
       "name": "default",
       "displayName": "Configure with default settings",
       "inherits": [ "sibling-build-preset", "project-name" ]
+    },
+    {
+      "name": "release",
+      "displayName": "Configure with Release settings",
+      "inherits": [ "sibling-build-preset", "project-name" ],
+      "cacheVariables": {
+        "CMAKE_BUILD_TYPE": "Release"
+      }
     }
   ],
   "buildPresets": [
@@ -37,6 +45,22 @@
       "name": "default",
       "displayName": "Build with default settings",
       "configurePreset": "default"
+    },
+    {
+      "name": "release",
+      "displayName": "Build with Release settings",
+      "configurePreset": "release",
+      "configuration": "Release"
+    }
+  ],
+  "packagePresets": [
+    {
+      "name": "default",
+      "configurePreset": "default"
+    },
+    {
+      "name": "release",
+      "configurePreset": "release"
     }
   ],
   "workflowPresets": [
@@ -51,6 +75,24 @@
         {
           "type": "build",
           "name": "default"
+        }
+      ]
+    },
+    {
+      "name": "release",
+      "displayName": "Workflow with default settings: configure, build and test",
+      "steps": [
+        {
+          "type": "configure",
+          "name": "release"
+        },
+        {
+          "type": "build",
+          "name": "release"
+        },
+        {
+          "type": "package",
+          "name": "release"
         }
       ]
     }

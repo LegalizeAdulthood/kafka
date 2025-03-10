@@ -1,0 +1,4 @@
+Copyright (C) 2021-2025 Richard Thomson
+Copyright (c) 1985 Wayne A. Christopher
+Permission is granted to do anything with this code except sell it
+or remove this message.

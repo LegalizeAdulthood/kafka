@@ -17,6 +17,7 @@ function(kafka_target name)
         DEPENDS kafka
         COMMENT "Kafka ${name}"
     )
+    install(TARGETS ${name} DESTINATION .)
 endfunction()
 
 foreach(grammar babble bill buttplug flame insult)

@@ -1,0 +1,38 @@
+set(KAFKA_PROGRAM_NAME                  "Kafka")
+
+set(CPACK_PACKAGE_NAME                  "${KAFKA_PROGRAM_NAME}")
+set(CPACK_PACKAGE_DESCRIPTION_SUMMARY   "${KAFKA_PROGRAM_NAME} madlib generator")
+set(CPACK_PACKAGE_VENDOR                "Legalize Adulthood!")
+set(CPACK_PACKAGE_VERSION_MAJOR         ${PROJECT_VERSION_MAJOR})
+set(CPACK_PACKAGE_VERSION_MINOR         ${PROJECT_VERSION_MINOR})
+set(CPACK_PACKAGE_VERSION_PATCH         ${PROJECT_VERSION_PATCH})
+set(CPACK_PACKAGE_INSTALL_DIRECTORY     ${CPACK_PACKAGE_NAME})
+set(CPACK_VERBATIM_VARIABLES            TRUE)
+set(CPACK_PACKAGE_DESCRIPTION_FILE      "${CMAKE_CURRENT_LIST_DIR}/package_description.txt")
+set(CPACK_RESOURCE_FILE_WELCOME         "${CMAKE_CURRENT_LIST_DIR}/welcome.txt")
+set(CPACK_RESOURCE_FILE_LICENSE         "${CMAKE_SOURCE_DIR}/LICENSE.txt")
+set(CPACK_RESOURCE_FILE_README          "${CMAKE_CURRENT_LIST_DIR}/ReadMe.txt")
+set(CPACK_PACKAGE_EXECUTABLES           "kafka" "${KAFKA_PROGRAM_NAME}")
+
+if(WIN32)
+    set(CPACK_GENERATOR ZIP WIX)
+
+    install(FILES "github.ico" DESTINATION .)
+
+    set(CPACK_PACKAGE_ICON              "${CMAKE_CURRENT_LIST_DIR}/kafka.ico")
+    set(CPACK_WIX_UPGRADE_GUID          "0E9EE50A-71DB-4723-BC37-CC831B7A7EF7")
+    # Change the product GUID every time the version is changed
+    set(CPACK_WIX_PRODUCT_GUID          "4FEFACAE-F395-4163-8619-E03A35FDC6E7")
+    set(CPACK_WIX_PRODUCT_ICON          "${CMAKE_CURRENT_LIST_DIR}/kafka.ico")
+    set(CPACK_WIX_UI_BANNER             "${CMAKE_CURRENT_LIST_DIR}/banner.png")
+    set(CPACK_WIX_UI_DIALOG             "${CMAKE_CURRENT_LIST_DIR}/dialog.png")
+    set(CPACK_WIX_LICENSE_RTF           "${CMAKE_CURRENT_LIST_DIR}/LICENSE.rtf")
+    set(CPACK_WIX_PROGRAM_MENU_FOLDER   "${KAFKA_PROGRAM_NAME}")
+    set(CPACK_WIX_EXTENSIONS            "WiXUtilExtension")
+    set(CPACK_WIX_EXTRA_SOURCES         "${CMAKE_CURRENT_LIST_DIR}/shortcuts.xml")
+    set(CPACK_WIX_PATCH_FILE            "${CMAKE_CURRENT_LIST_DIR}/patch.xml")
+else()
+    set(CPACK_GENERATOR TGZ)
+endif()
+
+include(CPack)

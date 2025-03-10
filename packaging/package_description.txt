@@ -1,0 +1,3 @@
+Kafka is a madlib generator generator.  That is, it is a program that
+accepts a madlib definition and generates source code for a madlib generator
+that conforms to the definition.
