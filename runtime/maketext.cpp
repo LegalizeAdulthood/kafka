@@ -99,6 +99,7 @@ nextarc:
         /* It must be a real non-terminal then. Now decide
          * which rule to use.
          */
+        int retries{5};
         while (kknn)
         {
             if (kknn->kk_func == nullptr || (*kknn->kk_func)())
@@ -106,6 +107,13 @@ nextarc:
                 break;
             }
             kknn = kknn->kk_next;
+            // It's possible that RNG gods kept denying us a rule,
+            // so retry a few times.
+            if (kknn == nullptr && retries > 0)
+            {
+                kknn = kksp->ke_arc->kc_to;
+                --retries;
+            }
         }
         if (kknn == nullptr)
         {
